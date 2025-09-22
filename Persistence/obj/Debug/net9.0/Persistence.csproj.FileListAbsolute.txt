@@ -1,0 +1,17 @@
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/bin/Debug/net9.0/Persistence.deps.json
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/bin/Debug/net9.0/Persistence.runtimeconfig.json
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/bin/Debug/net9.0/Persistence.dll
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/bin/Debug/net9.0/Persistence.pdb
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/bin/Debug/net9.0/Domain.dll
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/bin/Debug/net9.0/Domain.pdb
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.csproj.AssemblyReference.cache
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.GeneratedMSBuildEditorConfig.editorconfig
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.AssemblyInfoInputs.cache
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.AssemblyInfo.cs
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.csproj.CoreCompileInputs.cache
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persiste.61C28332.Up2Date
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.dll
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/refint/Persistence.dll
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.pdb
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.genruntimeconfig.cache
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/ref/Persistence.dll
