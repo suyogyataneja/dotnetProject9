@@ -15,3 +15,4 @@
 /Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.pdb
 /Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.genruntimeconfig.cache
 /Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/ref/Persistence.dll
+/Users/suyogyataneja/myProjects/Reactivities/Persistence/obj/Debug/net9.0/Persistence.sourcelink.json

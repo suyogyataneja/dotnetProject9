@@ -9,3 +9,4 @@
 /Users/suyogyataneja/myProjects/Reactivities/Domain/obj/Debug/net9.0/refint/Domain.dll
 /Users/suyogyataneja/myProjects/Reactivities/Domain/obj/Debug/net9.0/Domain.pdb
 /Users/suyogyataneja/myProjects/Reactivities/Domain/obj/Debug/net9.0/ref/Domain.dll
+/Users/suyogyataneja/myProjects/Reactivities/Domain/obj/Debug/net9.0/Domain.sourcelink.json

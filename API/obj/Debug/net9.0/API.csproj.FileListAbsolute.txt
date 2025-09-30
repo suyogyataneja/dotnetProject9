@@ -189,3 +189,4 @@
 /Users/suyogyataneja/myProjects/Reactivities/API/obj/Debug/net9.0/API.pdb
 /Users/suyogyataneja/myProjects/Reactivities/API/obj/Debug/net9.0/API.genruntimeconfig.cache
 /Users/suyogyataneja/myProjects/Reactivities/API/obj/Debug/net9.0/ref/API.dll
+/Users/suyogyataneja/myProjects/Reactivities/API/obj/Debug/net9.0/API.sourcelink.json
