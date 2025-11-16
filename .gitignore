@@ -483,3 +483,38 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 API/appsettings.json
+
+
+####################################
+# Custom project-level ignores
+####################################
+
+# Backend
+API/appsettings.json
+API/appsettings.Development.json
+API/bin/
+API/obj/
+
+# Ignore API build artifacts
+API/**/*.dll
+API/**/*.pdb
+API/**/*.cache
+API/**/*.deps.json
+API/**/*.nuget.gd
+API/**/*.AssemblyReference.cache
+API/**/*.CoreCompileInputs.cache
+API/obj/
+API/bin/
+
+# Frontend
+client/node_modules/
+client/.env
+client/dist/
+client/build/
+
+# Local tools
+.vscode/
+.idea/
+
+# OS
+.DS_Store

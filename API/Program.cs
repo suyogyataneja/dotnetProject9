@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+// Adding CORS 
 builder.Services.AddCors();
 
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>());
@@ -22,6 +23,9 @@ builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetAct
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+//ADDING CORS CONFIGURATION
+
+//Without CORS, anyone could open your API from their malicious website. CORS ensures only trusted origins can access your API.
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "https://localhost:3000","https://localhost:3001"));
 app.MapControllers();
