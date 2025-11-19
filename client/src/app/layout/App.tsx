@@ -1,4 +1,4 @@
-import { CssBaseline, List, ListItemText } from "@mui/material";
+import { Container, CssBaseline, List, ListItemText } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import axios from "axios";
 import { useEffect, useState } from "react"
@@ -21,6 +21,7 @@ return (
   <>
   <CssBaseline/>
   <NavBar/>
+<Container maxWidth='xl'sx={{mt:3}}>
   <List>
     {activities.map((activity) => (
 
@@ -31,6 +32,10 @@ return (
     ))}
 
   </List>
+  
+</Container>
+
+
   </>
 )
 
