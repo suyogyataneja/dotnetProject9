@@ -22,16 +22,8 @@ return (
   <CssBaseline/>
   <NavBar/>
 <Container maxWidth='xl'sx={{mt:3}}>
-  <List>
-    {activities.map((activity) => (
 
-      <ListItem key={activity.id}>
-        <ListItemText>{activity.title}</ListItemText>
-
-      </ListItem>
-    ))}
-
-  </List>
+<ActivityDashboard activities={activities}/>
   
 </Container>
 
