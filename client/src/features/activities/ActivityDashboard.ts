@@ -1,7 +1,10 @@
 import React from 'react'
+import { Grid } from '@mui/material'; 
 
 export default function ActivityDashboard() {
   return (
-    <div>ActivityDashboard</div>
-  )
+   <Grid container>
+
+   </Grid>
+  );
 }
