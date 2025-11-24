@@ -1,18 +1,17 @@
-import React from 'react'
-import { Grid2, List, ListItem, ListItemText } from '@mui/material'; 
+import { Grid,List, ListItem, ListItemText } from '@mui/material'; 
 
 type Props = {
 activities:Activity[];
 
 }
 
-export default function ActivityDashboard() {
+export default function ActivityDashboard(props:Props) {
   return (
-   <Grid2 container>
-      <Grid2 size={9}>
+   <Grid container>
+      <Grid size={9}>
 
         <List>
-        {activities.map((activity) => (
+        {props.activities.map((activity) => (
 
           <ListItem key={activity.id}>
             <ListItemText>{activity.title}</ListItemText>
@@ -21,7 +20,7 @@ export default function ActivityDashboard() {
         ))}
 
         </List>
-      </Grid2>
-   </Grid2>
+      </Grid>
+   </Grid>
   );
 }
