@@ -1,8 +1,8 @@
-import { Container, CssBaseline, List, ListItemText } from "@mui/material";
-import ListItem from "@mui/material/ListItem";
+import { Box, Container, CssBaseline } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react"
 import NavBar from "./NavBar";
+import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 
 function App(){
 
@@ -18,7 +18,7 @@ useEffect(() => {
 
 const title = 'Welcome to Reactivities'
 return (
-  <>
+  <Box sx={{bgcolor:'#eeeeee'}}>
   <CssBaseline/>
   <NavBar/>
 <Container maxWidth='xl'sx={{mt:3}}>
@@ -28,7 +28,7 @@ return (
 </Container>
 
 
-  </>
+  </Box>
 )
 
 
