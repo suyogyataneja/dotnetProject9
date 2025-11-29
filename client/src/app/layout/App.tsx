@@ -17,6 +17,9 @@ const [activities, setActivties]= useState<Activity[]>([]);
 
 const [selectedActivity,setSelectedActivity]= useState<Activity |undefinedy>(undefined);
 
+
+const [editMode,setEditMode] = useState(false);
+
 useEffect(() => {
 
   axios.get<Activity[]>('https://localhost:5001/api/activities')
@@ -39,11 +42,29 @@ const handleCancelSelectActivity =() =>{
   setSelectedActivity(undefined);
 }
 
+
+//create another helper to handle opening of the form
+
+const handleOpenForm = (id?:string) => {
+if(id) handleSelectActivity(id);
+else handleCancelSelectActivity();
+setEditMode(true);
+
+} 
+
+//create another helper to handle closing of the form
+const handleFormClose =() =>{
+  setEditMode(false);
+
+}
+
+
+
 const title = 'Welcome to Reactivities'
 return (
   <Box sx={{bgcolor:'#eeeeee'}}>
   <CssBaseline/>
-  <NavBar/>
+  <NavBar openForm={handleOpenForm}/>
 <Container maxWidth='xl'sx={{mt:3}}>
 
 <ActivityDashboard 
@@ -51,6 +72,13 @@ activities={activities}
 selectActivity={handleSelectActivity}
 cancelSelectActivity={handleCancelSelectActivity}
 selectedActivity={selectedActivity}
+
+editMode={editMode}
+openForm ={handleOpenForm}
+closeForm ={handleFormClose}
+
+
+
 />
   
 </Container>
