@@ -1,13 +1,39 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { type FormEvent } from 'react'
 
 type Props ={
 activity?:Activity;
 closeForm:()=>void;
-    
+submitForm:(activity:Activity)=> void;
 }
 
-export default function ActivityForm({activity,closeForm}:Props) {
+export default function ActivityForm({activity,closeForm,submitForm}:Props) {
+
+    // helper function for event
+    // on submit handlesumit function is called.
+    const handleSubmit = (event:FormEvent<HTMLFormElement>)=>{
+        event.preventDefault();// prevents from using the browser submission which
+                               // which is going to cause our page to reload and we lose 
+                               // anything ot any of the data inside that form. We dont want to submit our browser
+                               // form. we want to prevent that behaviour
+        // console.log(event)
+
+        // getting formdata 
+        const formData = new FormData(event.currentTarget);
+        
+        //FormDataEntryValue
+        const data:{[key:string]:FormDataEntryValue} ={}
+        formData.forEach((value,key)=>{
+            data[key]= value;
+        });
+        console.log("suyogya")
+        // console.log(data);
+        if(activity) data.id = activity.id
+
+        submitForm(data as unknown as Activity);
+    }
+
+
   return (
     <Paper sx={{borderRadius:3, padding:3}}>
 
@@ -15,17 +41,17 @@ export default function ActivityForm({activity,closeForm}:Props) {
             CreateActivity
         </Typography>
 
-        <Box component ='form' display='flex' flexDirection='column' gap={3}>
-            <TextField label='Title' defaultValue={activity?.title} />
-            <TextField label='Description' defaultValue={activity?.description} multiline rows={3} />
-            <TextField label='Category' defaultValue={activity?.category} />
-            <TextField label='Date' type='date' defaultValue={activity?.date} />
-            <TextField label='City' defaultValue={activity?.city}/>
-            <TextField label='Venue' defaultValue={activity?.venue}/>
+        <Box component ='form' onSubmit={handleSubmit} display='flex' flexDirection='column' gap={3}>
+            <TextField name='title' label='Title' defaultValue={activity?.title} />
+            <TextField name='description' label='Description' defaultValue={activity?.description} multiline rows={3} />
+            <TextField name='category' label='Category' defaultValue={activity?.category} />
+            <TextField name='date' label='Date' type='date' defaultValue={activity?.date} />
+            <TextField name='city' label='City' defaultValue={activity?.city}/>
+            <TextField name='venue' label='Venue' defaultValue={activity?.venue}/>
 
             <Box display='flex' justifyContent='end'gap={3} >
                 <Button onClick={closeForm}  color='inherit'>Cancel</Button>
-                <Button color='success' variant="contained">Submit</Button>
+                <Button type="submit" color='success' variant="contained">Submit</Button>
 
             </Box>
 

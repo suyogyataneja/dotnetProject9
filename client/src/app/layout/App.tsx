@@ -58,7 +58,28 @@ const handleFormClose =() =>{
 
 }
 
+// another helper function to save submitted form data
 
+const handleSubmitForm = (activity:Activity) =>{
+
+  if(activity.id){
+    setActivties(activities.map(x=>x.id === activity.id ? activity : x))
+  }
+  else{
+    const newActivity = {...activity, id: activities.length.toString()}
+
+    setSelectedActivity(newActivity);
+    setActivties([...activities, newActivity])
+  }
+  setEditMode(false);
+}
+
+// helper function to delete activity
+
+const handleDelete = (id:string) =>{
+
+  setActivties(activities.filter(x=> x.id !== id))
+}
 
 const title = 'Welcome to Reactivities'
 return (
@@ -77,7 +98,8 @@ editMode={editMode}
 openForm ={handleOpenForm}
 closeForm ={handleFormClose}
 
-
+submitForm ={handleSubmitForm}
+deleteActivity={handleDelete}
 
 />
   
