@@ -4,6 +4,7 @@ import { useState } from "react"
 import NavBar from "./NavBar";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 import { useQuery } from "@tanstack/react-query";
+import { useActivities } from "../../lib/hooks/useActivities";
 
 function App(){
 
@@ -23,16 +24,20 @@ const [selectedActivity,setSelectedActivity]= useState<Activity |undefined>(unde
 
 const [editMode,setEditMode] = useState(false);
 
+// making use of custom hook
+const {activities, isPending} = useActivities();
+
+
 
 // using useQuery hook 
-const {data:activities, isPending} = useQuery({
+// const {data:activities, isPending} = useQuery({
 
-queryKey:['activities'],
-queryFn:async() =>{
-  const response = await axios.get<Activity[]>('https://localhost:5001/api/activities');
-  return response.data;
-}
-})
+// queryKey:['activities'],
+// queryFn:async() =>{
+//   const response = await axios.get<Activity[]>('https://localhost:5001/api/activities');
+//   return response.data;
+// }
+// })
 
 
 
@@ -102,7 +107,7 @@ const handleDelete = (id:string) =>{
 
 const title = 'Welcome to Reactivities'
 return (
-  <Box sx={{bgcolor:'#eeeeee'}}>
+  <Box sx={{bgcolor:'#eeeeee', minHeight:'100vb'}}>
   <CssBaseline/>
   <NavBar openForm={handleOpenForm}/>
 <Container maxWidth='xl'sx={{mt:3}}>
