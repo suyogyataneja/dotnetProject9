@@ -1,12 +1,15 @@
-import { Box, Container, CssBaseline } from "@mui/material";
+import { Box, Container, CssBaseline, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import NavBar from "./NavBar";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
+import { useQuery } from "@tanstack/react-query";
 
 function App(){
 
-const [activities, setActivties]= useState<Activity[]>([]);
+
+// Now we don't need usestate to local state--we will use ReactQuery(Global State) to store actvities
+//const [activities, setActivties]= useState<Activity[]>([]);
 
 // use state hook lets you add a state-variable to your component
 // It takes an initial value of state variable as an argument and 
@@ -15,18 +18,31 @@ const [activities, setActivties]= useState<Activity[]>([]);
 // const [CURRENT STATE VALUE(selectedActivity),FUNCTION TO UPDATE THE 
 // STATE(setSelectedActivity]= useState(Initialise state)
 
-const [selectedActivity,setSelectedActivity]= useState<Activity |undefinedy>(undefined);
+const [selectedActivity,setSelectedActivity]= useState<Activity |undefined>(undefined);
 
 
 const [editMode,setEditMode] = useState(false);
 
-useEffect(() => {
 
-  axios.get<Activity[]>('https://localhost:5001/api/activities')
+// using useQuery hook 
+const {data:activities, isPending} = useQuery({
+
+queryKey:['activities'],
+queryFn:async() =>{
+  const response = await axios.get<Activity[]>('https://localhost:5001/api/activities');
+  return response.data;
+}
+})
+
+
+
+// useEffect(() => {
+
+//   axios.get<Activity[]>('https://localhost:5001/api/activities')
  
-  .then(response => setActivties(response.data))
+//   .then(response => setActivties(response.data))
 
-},[])
+// },[])
 
 // Create a helper function inside a function here
 
@@ -62,15 +78,17 @@ const handleFormClose =() =>{
 
 const handleSubmitForm = (activity:Activity) =>{
 
-  if(activity.id){
-    setActivties(activities.map(x=>x.id === activity.id ? activity : x))
-  }
-  else{
-    const newActivity = {...activity, id: activities.length.toString()}
+  // if(activity.id){
+  //   setActivties(activities.map(x=>x.id === activity.id ? activity : x))
+  // }
+  // else{
+  //   const newActivity = {...activity, id: activities.length.toString()}
 
-    setSelectedActivity(newActivity);
-    setActivties([...activities, newActivity])
-  }
+  //   setSelectedActivity(newActivity);
+  //   setActivties([...activities, newActivity])
+  // }
+
+  console.log(activity)
   setEditMode(false);
 }
 
@@ -78,7 +96,8 @@ const handleSubmitForm = (activity:Activity) =>{
 
 const handleDelete = (id:string) =>{
 
-  setActivties(activities.filter(x=> x.id !== id))
+  // setActivties(activities.filter(x=> x.id !== id))
+  console.log(id);
 }
 
 const title = 'Welcome to Reactivities'
@@ -87,21 +106,26 @@ return (
   <CssBaseline/>
   <NavBar openForm={handleOpenForm}/>
 <Container maxWidth='xl'sx={{mt:3}}>
-
+{!activities || isPending?(
+<Typography>Loading....</Typography>
+):(
 <ActivityDashboard 
-activities={activities}
-selectActivity={handleSelectActivity}
-cancelSelectActivity={handleCancelSelectActivity}
-selectedActivity={selectedActivity}
+  activities={activities}
+  selectActivity={handleSelectActivity}
+  cancelSelectActivity={handleCancelSelectActivity}
+  selectedActivity={selectedActivity}
 
-editMode={editMode}
-openForm ={handleOpenForm}
-closeForm ={handleFormClose}
+  editMode={editMode}
+  openForm ={handleOpenForm}
+  closeForm ={handleFormClose}
 
-submitForm ={handleSubmitForm}
-deleteActivity={handleDelete}
+  submitForm ={handleSubmitForm}
+  deleteActivity={handleDelete}
 
 />
+)
+}
+
   
 </Container>
 
