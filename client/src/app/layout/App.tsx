@@ -81,21 +81,21 @@ const handleFormClose =() =>{
 
 // another helper function to save submitted form data
 
-const handleSubmitForm = (activity:Activity) =>{
+// const handleSubmitForm = (activity:Activity) =>{
 
-  // if(activity.id){
-  //   setActivties(activities.map(x=>x.id === activity.id ? activity : x))
-  // }
-  // else{
-  //   const newActivity = {...activity, id: activities.length.toString()}
+//   // if(activity.id){
+//   //   setActivties(activities.map(x=>x.id === activity.id ? activity : x))
+//   // }
+//   // else{
+//   //   const newActivity = {...activity, id: activities.length.toString()}
 
-  //   setSelectedActivity(newActivity);
-  //   setActivties([...activities, newActivity])
-  // }
+//   //   setSelectedActivity(newActivity);
+//   //   setActivties([...activities, newActivity])
+//   // }
 
-  console.log(activity)
-  setEditMode(false);
-}
+//   console.log(activity)
+//   setEditMode(false);
+// }
 
 // helper function to delete activity
 
@@ -124,7 +124,7 @@ return (
   openForm ={handleOpenForm}
   closeForm ={handleFormClose}
 
-  submitForm ={handleSubmitForm}
+  // submitForm ={handleSubmitForm}
   deleteActivity={handleDelete}
 
 />

@@ -1,17 +1,22 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import React, { type FormEvent } from 'react'
+import { useActivities } from '../../../lib/hooks/useActivities';
 
 type Props ={
 activity?:Activity;
 closeForm:()=>void;
-submitForm:(activity:Activity)=> void;
+// submitForm:(activity:Activity)=> void;
 }
 
-export default function ActivityForm({activity,closeForm,submitForm}:Props) {
+export default function ActivityForm({activity,closeForm,
+    // submitForm
+}:Props) {
+
+    const {updateActivity} = useActivities();
 
     // helper function for event
     // on submit handlesumit function is called.
-    const handleSubmit = (event:FormEvent<HTMLFormElement>)=>{
+    const handleSubmit = async (event:FormEvent<HTMLFormElement>)=>{
         event.preventDefault();// prevents from using the browser submission which
                                // which is going to cause our page to reload and we lose 
                                // anything ot any of the data inside that form. We dont want to submit our browser
@@ -28,9 +33,13 @@ export default function ActivityForm({activity,closeForm,submitForm}:Props) {
         });
         console.log("suyogya")
         // console.log(data);
-        if(activity) data.id = activity.id
+        if(activity) {
+            data.id = activity.id;
+            await updateActivity.mutateAsync(data as unknown as Activity);
+            closeForm();
+        }
 
-        submitForm(data as unknown as Activity);
+        // submitForm(data as unknown as Activity);
     }
 
 
@@ -45,13 +54,26 @@ export default function ActivityForm({activity,closeForm,submitForm}:Props) {
             <TextField name='title' label='Title' defaultValue={activity?.title} />
             <TextField name='description' label='Description' defaultValue={activity?.description} multiline rows={3} />
             <TextField name='category' label='Category' defaultValue={activity?.category} />
-            <TextField name='date' label='Date' type='date' defaultValue={activity?.date} />
+            <TextField name='date' label='Date' type='date' 
+            
+            defaultValue={activity?.date
+                ? new Date(activity.date).toISOString().split('T')[0]
+                : new Date().toISOString().split('T')[0]
+            }
+            
+            
+            />
             <TextField name='city' label='City' defaultValue={activity?.city}/>
             <TextField name='venue' label='Venue' defaultValue={activity?.venue}/>
 
             <Box display='flex' justifyContent='end'gap={3} >
                 <Button onClick={closeForm}  color='inherit'>Cancel</Button>
-                <Button type="submit" color='success' variant="contained">Submit</Button>
+                <Button 
+                    type="submit" 
+                    color='success'
+                    variant="contained"
+                    disabled={updateActivity.isPending}     
+                >Submit</Button>
 
             </Box>
 
