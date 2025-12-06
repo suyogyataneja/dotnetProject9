@@ -12,7 +12,7 @@ export default function ActivityForm({activity,closeForm,
     // submitForm
 }:Props) {
 
-    const {updateActivity} = useActivities();
+    const {updateActivity,createActivity} = useActivities();
 
     // helper function for event
     // on submit handlesumit function is called.
@@ -36,6 +36,10 @@ export default function ActivityForm({activity,closeForm,
         if(activity) {
             data.id = activity.id;
             await updateActivity.mutateAsync(data as unknown as Activity);
+            closeForm();
+        }else{
+
+            await createActivity.mutateAsync(data as unknown as Activity);
             closeForm();
         }
 
@@ -72,7 +76,7 @@ export default function ActivityForm({activity,closeForm,
                     type="submit" 
                     color='success'
                     variant="contained"
-                    disabled={updateActivity.isPending}     
+                    disabled={updateActivity.isPending || createActivity.isPending}     
                 >Submit</Button>
 
             </Box>
