@@ -99,11 +99,11 @@ const handleFormClose =() =>{
 
 // helper function to delete activity
 
-const handleDelete = (id:string) =>{
+// const handleDelete = (id:string) =>{
 
-  // setActivties(activities.filter(x=> x.id !== id))
-  console.log(id);
-}
+//   // setActivties(activities.filter(x=> x.id !== id))
+//   console.log(id);
+// }
 
 const title = 'Welcome to Reactivities'
 return (
@@ -125,7 +125,7 @@ return (
   closeForm ={handleFormClose}
 
   // submitForm ={handleSubmitForm}
-  deleteActivity={handleDelete}
+  // deleteActivity={handleDelete}
 
 />
 )
