@@ -12,8 +12,8 @@ selectedActivity?:Activity | undefined;
 openForm:(id:string)=> void;
 closeForm:() =>void;
 editMode:boolean
-submitForm:(activity:Activity) => void
-deleteActivity:(id:string)=> void
+// submitForm:(activity:Activity) => void
+// deleteActivity:(id:string)=> void
 }
 
 export default function ActivityDashboard({activities, cancelSelectActivity,
@@ -22,7 +22,7 @@ export default function ActivityDashboard({activities, cancelSelectActivity,
   openForm,
   closeForm,
   editMode,
-  submitForm,
+  // submitForm,
   deleteActivity
 }:Props) {
   return (
@@ -31,7 +31,7 @@ export default function ActivityDashboard({activities, cancelSelectActivity,
       <ActivityList 
       activities={activities}
       selectActivity = {selectActivity}
-      deleteActivity ={deleteActivity}
+      // deleteActivity ={deleteActivity}
       
       />
       </Grid>
@@ -40,7 +40,7 @@ export default function ActivityDashboard({activities, cancelSelectActivity,
          {selectedActivity &&  !editMode &&
          
          <ActivityDetail
-         activity={selectedActivity}
+         selectedActivity={selectedActivity}
          cancelSelectActivity ={cancelSelectActivity}
          openForm={openForm}
            />
@@ -50,7 +50,7 @@ export default function ActivityDashboard({activities, cancelSelectActivity,
           <ActivityForm
            closeForm ={closeForm }
             activity={selectedActivity}
-            submitForm ={submitForm}
+            // submitForm ={submitForm}
             />}
 
 
