@@ -50,7 +50,7 @@ const createActivity = useMutation({
 const deleteActivity = useMutation({
 
     mutationFn:async (id:string) => {
-        await agent.post(`/activities/${id}`)
+        await agent.delete(`/activities/${id}`)
     },
 
     onSuccess: async() =>{
@@ -69,5 +69,4 @@ return {
     createActivity,
     deleteActivity
 }
-
 }

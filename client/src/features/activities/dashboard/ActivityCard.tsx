@@ -36,8 +36,9 @@ export default function ActivityCard({
         <Button 
         onClick={() => deleteActivity.mutate(activity.id)}
         disabled = {deleteActivity.isPending}
-         color='error' size="medium" 
-         variant="contained"
+        color='error'
+        size="medium" 
+        variant="contained"
          >Delete </Button>
         </Box>
     </CardActions>

@@ -21,9 +21,9 @@ export default function ActivityDashboard({activities, cancelSelectActivity,
   selectedActivity,
   openForm,
   closeForm,
-  editMode,
+  editMode
   // submitForm,
-  deleteActivity
+  // deleteActivity
 }:Props) {
   return (
    <Grid container spacing={3}>
