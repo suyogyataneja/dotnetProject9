@@ -1,10 +1,8 @@
 import { Box, Container, CssBaseline, Typography } from "@mui/material";
-import axios from "axios";
-import { useState } from "react"
 import NavBar from "./NavBar";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
-import { useQuery } from "@tanstack/react-query";
 import { useActivities } from "../../lib/hooks/useActivities";
+import { Outlet } from "react-router";
 
 function App(){
 
@@ -19,14 +17,13 @@ function App(){
 // const [CURRENT STATE VALUE(selectedActivity),FUNCTION TO UPDATE THE 
 // STATE(setSelectedActivity]= useState(Initialise state)
 
-const [selectedActivity,setSelectedActivity]= useState<Activity |undefined>(undefined);
-
-
-const [editMode,setEditMode] = useState(false);
+// const [selectedActivity,setSelectedActivity]= useState<Activity |undefined>(undefined);
+// const [editMode,setEditMode] = useState(false);
 
 // making use of custom hook
 const {activities, isPending} = useActivities();
 
+if(!activities || isPending) return <Typography>Loading...</Typography>
 
 
 // using useQuery hook 
@@ -51,33 +48,33 @@ const {activities, isPending} = useActivities();
 
 // Create a helper function inside a function here
 
-const handleSelectActivity = (id:string) =>{
+// const handleSelectActivity = (id:string) =>{
 
-  // In Javascript for equality checks we use == while in typescript we use ===
-  setSelectedActivity(activities.find(x =>x.id === id))
-}
+//   // In Javascript for equality checks we use == while in typescript we use ===
+//   setSelectedActivity(activities.find(x =>x.id === id))
+// }
 
-//create another helper function
-const handleCancelSelectActivity =() =>{
+// //create another helper function
+// const handleCancelSelectActivity =() =>{
 
-  setSelectedActivity(undefined);
-}
+//   setSelectedActivity(undefined);
+// }
 
 
-//create another helper to handle opening of the form
+// //create another helper to handle opening of the form
 
-const handleOpenForm = (id?:string) => {
-if(id) handleSelectActivity(id);
-else handleCancelSelectActivity();
-setEditMode(true);
+// const handleOpenForm = (id?:string) => {
+// if(id) handleSelectActivity(id);
+// else handleCancelSelectActivity();
+// setEditMode(true);
 
-} 
+// } 
 
-//create another helper to handle closing of the form
-const handleFormClose =() =>{
-  setEditMode(false);
+// //create another helper to handle closing of the form
+// const handleFormClose =() =>{
+//   setEditMode(false);
 
-}
+// }
 
 // another helper function to save submitted form data
 
@@ -105,33 +102,13 @@ const handleFormClose =() =>{
 //   console.log(id);
 // }
 
-const title = 'Welcome to Reactivities'
 return (
   <Box sx={{bgcolor:'#eeeeee', minHeight:'100vb'}}>
   <CssBaseline/>
-  <NavBar openForm={handleOpenForm}/>
+  <NavBar />
 <Container maxWidth='xl'sx={{mt:3}}>
-{!activities || isPending?(
-<Typography>Loading....</Typography>
-):(
-<ActivityDashboard 
-  activities={activities}
-  selectActivity={handleSelectActivity}
-  cancelSelectActivity={handleCancelSelectActivity}
-  selectedActivity={selectedActivity}
-
-  editMode={editMode}
-  openForm ={handleOpenForm}
-  closeForm ={handleFormClose}
-
-  // submitForm ={handleSubmitForm}
-  // deleteActivity={handleDelete}
-
-/>
-)
-}
-
-  
+{/* <ActivityDashboard/> */}
+  <Outlet/>
 </Container>
 
 
