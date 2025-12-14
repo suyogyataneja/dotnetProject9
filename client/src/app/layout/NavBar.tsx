@@ -1,7 +1,8 @@
 
 import Group from "@mui/icons-material/Group";
-import { AppBar, Box, Button, Container, IconButton, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Container, MenuItem, Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router";
+import MenuItemLink from "../shared/components/MenuItemLink";
 
 
 // type Props ={
@@ -24,31 +25,17 @@ export default function NavBar() {
                 </Box>
 
                 <Box sx={{display:'flex'}}>
-                    <MenuItem component={NavLink} to='/activities' sx={{fontSize:'1.2rem', textTransform:'uppercase', fontWeight:'bold'}}>
+                    <MenuItemLink  to='/activities' >
                     Activities
-                    </MenuItem>
+                    </MenuItemLink>
 
-                    <MenuItem sx={{fontSize:'1.2rem', textTransform:'uppercase', fontWeight:'bold'}}>
+                    <MenuItemLink
+                    to='/createActivity'>
                     Create Activity
-                    </MenuItem>
-
-                    <MenuItem sx={{fontSize:'1.2rem', textTransform:'uppercase', fontWeight:'bold'}}>
-                    Contact
-                    </MenuItem>
+                    </MenuItemLink>
 
                 </Box>
 
-                <Button
-                 size="large" 
-                 variant="contained"
-                 color="warning"
-                //  onClick={openForm}
-                 onClick={()=>{}}
-                 >
-                    
-                    Create Activity
-                    
-                    </Button>
 
             </Toolbar>
         </Container>
