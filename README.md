@@ -6,6 +6,7 @@ Reactivities is a full-stack demo application that demonstrates a modern CRUD wo
 	•	 React Query for efficient server state management
 	•	 SQL Server as the backend database
 	•	 xUnit + FluentAssertions for unit testing API behavior
+	- 	 Implement React Router
 
 This project is ideal for developers learning enterprise-level patterns such as:
 	•	Domain-driven design (DDD)
