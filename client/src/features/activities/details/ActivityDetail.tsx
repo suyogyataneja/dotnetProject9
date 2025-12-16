@@ -1,5 +1,6 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
-import { useActivities } from "../../../lib/hooks/useActivities"
+import { useNavigate } from "react-router";
+import Link from "@mui/icons-material/Link";
 
 // type Props ={
 //     selectedActivity :Activity
@@ -10,6 +11,10 @@ import { useActivities } from "../../../lib/hooks/useActivities"
 
 export default function ActivityDetail() 
 {
+
+  // use Navigate hook
+  const navigate = useNavigate();
+
   const activity ={} as Activity;
   // const { activities } = useActivities();
   // const activity = activities?.find(x=>x.id === selectedActivity.id);
@@ -30,8 +35,9 @@ export default function ActivityDetail()
             <Typography variant="body1">{activity.description}</Typography>
 
             <CardActions>
-              <Button onClick={()=>openForm(activity.id) }color="primary">Edit</Button>
-              <Button onClick={cancelSelectActivity} color="inherit">Cancel</Button>
+              
+              <Button component={Link} to= {`/activities/${activity.id}`}color="primary">Edit</Button>
+              <Button onClick={()=> navigate('/activities')} color="inherit">Cancel</Button>
 
             </CardActions>
         </CardContent>
