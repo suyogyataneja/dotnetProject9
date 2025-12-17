@@ -1,6 +1,7 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Link from "@mui/icons-material/Link";
+import type { useActivities } from "../../../lib/hooks/useActivities";
 
 // type Props ={
 //     selectedActivity :Activity
@@ -14,10 +15,13 @@ export default function ActivityDetail()
 
   // use Navigate hook
   const navigate = useNavigate();
-
-  const activity ={} as Activity;
+  const {id} = useParams();
+  const {activity,isLoadingActivity} = useActivities(id);
+  // const activity ={} as Activity;
   // const { activities } = useActivities();
   // const activity = activities?.find(x=>x.id === selectedActivity.id);
+
+  if(isLoadingActivity) return <Typography>Loading...</Typography>
 
   if(!activity) return <Typography>Loading...</Typography>
 
