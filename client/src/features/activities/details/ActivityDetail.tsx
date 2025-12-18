@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import { useNavigate, useParams } from "react-router";
 import Link from "@mui/icons-material/Link";
-import type { useActivities } from "../../../lib/hooks/useActivities";
+import  { useActivities } from "../../../lib/hooks/useActivities";
 
 // type Props ={
 //     selectedActivity :Activity
