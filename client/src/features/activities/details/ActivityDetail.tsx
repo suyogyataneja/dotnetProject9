@@ -1,20 +1,29 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
-import { useActivities } from "../../../lib/hooks/useActivities"
+import { useNavigate, useParams } from "react-router";
+import Link from "@mui/icons-material/Link";
+import  { useActivities } from "../../../lib/hooks/useActivities";
 
-type Props ={
-    selectedActivity :Activity
-    // activity:Activity
-    cancelSelectActivity:()=>void
-    openForm:(id:string) =>void
-}
+// type Props ={
+//     selectedActivity :Activity
+//     // activity:Activity
+//     cancelSelectActivity:()=>void
+//     openForm:(id:string) =>void
+// }
 
-export default function ActivityDetail({selectedActivity,cancelSelectActivity,openForm}:Props) 
+export default function ActivityDetail() 
 {
 
-  const { activities } = useActivities();
-  const activity = activities?.find(x=>x.id === selectedActivity.id);
+  // use Navigate hook
+  const navigate = useNavigate();
+  const {id} = useParams();// to get id from root
+  const {activity,isLoadingActivity} = useActivities(id);
+  // const activity ={} as Activity;
+  // const { activities } = useActivities();
+  // const activity = activities?.find(x=>x.id === selectedActivity.id);
 
-  if(!activity) return <Typography>Loading...</Typography>
+  if(isLoadingActivity) return <Typography>Loading...</Typography>
+
+  if(!activity) return <Typography>Activity not found</Typography>
 
 
   return (
@@ -30,8 +39,9 @@ export default function ActivityDetail({selectedActivity,cancelSelectActivity,op
             <Typography variant="body1">{activity.description}</Typography>
 
             <CardActions>
-              <Button onClick={()=>openForm(activity.id) }color="primary">Edit</Button>
-              <Button onClick={cancelSelectActivity} color="inherit">Cancel</Button>
+              
+              <Button component={Link} to= {`/activities/${activity.id}`}color="primary">Edit</Button>
+              <Button onClick={()=> navigate('/activities')} color="inherit">Cancel</Button>
 
             </CardActions>
         </CardContent>
