@@ -15,7 +15,7 @@ export default function ActivityDetail()
 
   // use Navigate hook
   const navigate = useNavigate();
-  const {id} = useParams();
+  const {id} = useParams();// to get id from root
   const {activity,isLoadingActivity} = useActivities(id);
   // const activity ={} as Activity;
   // const { activities } = useActivities();
@@ -23,7 +23,7 @@ export default function ActivityDetail()
 
   if(isLoadingActivity) return <Typography>Loading...</Typography>
 
-  if(!activity) return <Typography>Loading...</Typography>
+  if(!activity) return <Typography>Activity not found</Typography>
 
 
   return (
