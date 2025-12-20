@@ -1,6 +1,7 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import React, { type FormEvent } from 'react'
 import { useActivities } from '../../../lib/hooks/useActivities';
+import { useNavigate } from 'react-router';
 
 // type Props ={
 // activity?:Activity;
@@ -10,9 +11,12 @@ import { useActivities } from '../../../lib/hooks/useActivities';
 
 export default function ActivityForm() {
 
-    const {updateActivity,createActivity} = useActivities();
+    const {updateActivity,createActivity,activity} = useActivities();
 
-    const activity ={} as Activity;
+    //use navigate
+    const navigate = useNavigate();
+
+    // const activity ={} as Activity;
     // helper function for event
     // on submit handlesumit function is called.
     const handleSubmit = async (event:FormEvent<HTMLFormElement>)=>{
@@ -62,9 +66,7 @@ export default function ActivityForm() {
             defaultValue={activity?.date
                 ? new Date(activity.date).toISOString().split('T')[0]
                 : new Date().toISOString().split('T')[0]
-            }
-            
-            
+            }            
             />
             <TextField name='city' label='City' defaultValue={activity?.city}/>
             <TextField name='venue' label='Venue' defaultValue={activity?.venue}/>
