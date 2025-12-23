@@ -62,6 +62,7 @@ navigate(`/activities/${activity.id}`);
     <Paper sx={{borderRadius:3, padding:3}}>
 
         <Typography variant="h5" gutterBottom color="primary">
+            {activity ? 'Edit activity' : 'Create activity'}
             CreateActivity
         </Typography>
 
