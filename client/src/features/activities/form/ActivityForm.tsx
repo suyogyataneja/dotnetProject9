@@ -45,7 +45,12 @@ navigate(`/activities/${activity.id}`);
             // closeForm();
         }else{
 
-            await createActivity.mutateAsync(data as unknown as Activity);
+             createActivity.mutate(data as unknown as Activity, {
+                onSuccess:(id) =>{
+                    navigate(`/actitivties/${id}`)
+                }
+
+             });
             // closeForm();
         }
 
