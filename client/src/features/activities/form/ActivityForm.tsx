@@ -63,7 +63,7 @@ navigate(`/activities/${activity.id}`);
 
         <Typography variant="h5" gutterBottom color="primary">
             {activity ? 'Edit activity' : 'Create activity'}
-            CreateActivity
+            
         </Typography>
 
         <Box component ='form' onSubmit={handleSubmit} display='flex' flexDirection='column' gap={3}>
