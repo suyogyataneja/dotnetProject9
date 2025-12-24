@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{B57D871D-F412-4F8D-99BC-99EBB2C1F481}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reactivities.UnitTests", "Tests\Reactivities.UnitTests\Reactivities.UnitTests.csproj", "{AD834581-3F2A-4731-A211-38C046D0AE0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,8 +73,23 @@ Global
 		{B57D871D-F412-4F8D-99BC-99EBB2C1F481}.Release|x64.Build.0 = Release|Any CPU
 		{B57D871D-F412-4F8D-99BC-99EBB2C1F481}.Release|x86.ActiveCfg = Release|Any CPU
 		{B57D871D-F412-4F8D-99BC-99EBB2C1F481}.Release|x86.Build.0 = Release|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Release|x64.Build.0 = Release|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD834581-3F2A-4731-A211-38C046D0AE0F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD834581-3F2A-4731-A211-38C046D0AE0F} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
