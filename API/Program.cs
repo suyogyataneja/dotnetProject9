@@ -1,8 +1,10 @@
 using Application.Activities.Queries;
 using Application.Core;
+using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper;
+using Persistence.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,8 @@ builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetAct
 // builder.Services.AddScoped<IYourService, YourService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+
+// builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 
 var app = builder.Build();
 
