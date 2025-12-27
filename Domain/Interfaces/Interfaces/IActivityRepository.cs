@@ -1,8 +1,6 @@
-using Domain;
+namespace Domain.Interfaces.Interfaces;
 
-namespace Application.Interfaces;
-
-public class IActivityRepository
+public interface IActivityRepository
 {
     Task<List<Activity>> GetAllAsync();
     Task<Activity?> GetByIdAsync(Guid id);

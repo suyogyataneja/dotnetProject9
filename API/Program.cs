@@ -1,6 +1,6 @@
 using Application.Activities.Queries;
 using Application.Core;
-using Application.Interfaces;
+
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper;
