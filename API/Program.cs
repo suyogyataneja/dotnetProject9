@@ -30,6 +30,10 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 
+// Adding Swagger services 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,6 +42,15 @@ var app = builder.Build();
 //Without CORS, anyone could open your API from their malicious website. CORS ensures only trusted origins can access your API.
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "https://localhost:3000","https://localhost:3001"));
+
+//Enable Swagger
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reactivtities API v1");
+    c.RoutePrefix = string.Empty;
+});
+
 app.MapControllers();
 
 using var scope = app.Services.CreateScope(); // we are doing this so that this gets disposed as soon we have used it
