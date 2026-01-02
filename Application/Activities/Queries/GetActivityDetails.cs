@@ -27,7 +27,7 @@ public class GetActivityDetails
         {
 
              var activity = await context.Activities.FindAsync(request.Id, cancellationToken);
-            // var activity = await repository.GetByIdAsync(request.Id);
+             var activity = await repository.GetByIdAsync(request.Id);
             // var activity = await repository.GetByIdAsync(request.Id);       
             
             // WE Dont have ability to return HTTP RESPONSE CODES here
