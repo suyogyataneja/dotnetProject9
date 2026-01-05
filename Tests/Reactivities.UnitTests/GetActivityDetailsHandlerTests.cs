@@ -14,10 +14,32 @@ public class GetActivityDetailsHandlerTests
 
     }
 
+    //Created a helper function to reduce redundancy
+    private static AppDbContext CreateInMemoryContext()
+    {
+        
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+        
+        return new AppDbContext(options);
+    }
+
+    private static Activity CreateTestActivity() =>
+        new()
+        {
+            Id = Guid.NewGuid().ToString(),
+            Title = "Test Activity",
+            Description = "This is test activity",
+            Category = "Category Test",
+            City = "City Test",
+            Venue = "Venue Test"
+
+        };
+    
     [Fact]
     public async Task Handle_ReturnsActivity_WhenActivityExists()
     {
-
+        //Arrange
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
 
