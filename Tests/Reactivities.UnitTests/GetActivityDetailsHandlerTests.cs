@@ -37,7 +37,7 @@ public class GetActivityDetailsHandlerTests
         };
     
     [Fact]
-    public async Task Handle_ReturnsActivity_WhenActivityExists()
+    public async Task Handle_ReturnsActivity_old_WhenActivityExists()
     {
         //Arrange
         var options = new DbContextOptionsBuilder<AppDbContext>()
@@ -74,5 +74,26 @@ public class GetActivityDetailsHandlerTests
         //Assert
         Assert.NotNull(result);
         Assert.Equal(testActivity.Id, result.Id);
+    }
+    
+    [Fact]
+    public async Task Handle_ReturnsActivity_WhenActivityExists()
+    {
+        //Arrange
+
+        using var context = CreateInMemoryContext();
+        var testActivity = CreateTestActivity();
+        context.Activities.Add(testActivity);
+        context.SaveChanges();
+
+        var handler = new GetActivityDetails.Handler(context);
+        var query = new GetActivityDetails.Query { Id= testActivity.Id};
+        
+        //Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        //Assert 
+        Assert.NotNull(result);
+        Assert.Equal(testActivity.Id,result.Id);
     }
 }
