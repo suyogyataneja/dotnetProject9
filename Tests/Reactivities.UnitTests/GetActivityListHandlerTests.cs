@@ -8,9 +8,6 @@ namespace Reactivities.UnitTests;
 
 public class GetActivityListHandlerTests
 {
-    [Fact]
-    public void Test1()
-    {}
 
     private static AppDbContext CreateInMemoryContext()
     {
