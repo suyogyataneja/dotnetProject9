@@ -51,6 +51,13 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty;
 });
 
+// app.UseSwagger();
+// app.UseSwaggerUI(c =>
+// {
+//     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reactivtities API v1");
+//     c.RoutePrefix = string.Empty;
+// });
+
 app.MapControllers();
 
 using var scope = app.Services.CreateScope(); // we are doing this so that this gets disposed as soon we have used it
