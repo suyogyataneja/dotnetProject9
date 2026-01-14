@@ -1,10 +1,12 @@
 using Application.Activities.Queries;
+using Application.Activities.Validators;
 using Application.Core;
 
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper;
 using Domain.Interfaces.Interfaces;
+using FluentValidation;
 using Persistence.Repositories;
 
 
@@ -27,6 +29,7 @@ builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetAct
 // builder.Services.AddScoped<IYourService, YourService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
 
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 
