@@ -15,7 +15,7 @@ namespace API.Controllers
         ?? throw new InvalidOperationException("Mediator is not registered");
 
 
-        protected ActionResult<T> HandleResult<T>(Result<T> result)
+        protected ActionResult HandleResult<T>(Result<T> result)
         {
             if(!result.IsSuccess && result.Code == 404) return NotFound();
 
