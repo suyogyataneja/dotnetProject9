@@ -1,3 +1,4 @@
+using Application.Core;
 using Domain;
 using Domain.Interfaces.Interfaces;
 using MediatR;
@@ -9,7 +10,7 @@ public class GetActivityDetails
 {
 
 
-    public class Query : IRequest<Activity>
+    public class Query : IRequest<Result<Activity>>
     {
         // public Guid Id { get; set; }
         
@@ -19,11 +20,11 @@ public class GetActivityDetails
     }
 
     // Public class Handler
-     public class Handler(AppDbContext context) : IRequestHandler<Query, Activity>
+     public class Handler(AppDbContext context) : IRequestHandler<Query, Result<Activity>>
     //public class Handler(IActivityRepository repository) :IRequestHandler<Query, Activity>
     {
 
-        public async Task<Activity> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<Activity>> Handle(Query request, CancellationToken cancellationToken)
         {
 
              var activity = await context.Activities.FindAsync(request.Id, cancellationToken);
@@ -31,8 +32,12 @@ public class GetActivityDetails
             // var activity = await repository.GetByIdAsync(request.Id);       
             
             // WE Dont have ability to return HTTP RESPONSE CODES here
-            if (activity == null) throw new Exception("Activity not found");
-            return activity;
+            // if (activity == null) throw new Exception("Activity not found");
+            
+            if(activity == null) return Result<Activity>.Failure("Activity not found",404);
+            return Result<Activity>.Success(activity);
+                
+                
         }
 
     }
