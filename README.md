@@ -15,7 +15,7 @@ This project is ideal for developers learning enterprise-level patterns such as:
 	•	API-first development using RESTful endpoints
 	•	React state management best practices using React Query
 	•	Domain-driven design (DDD)
-	•	Domain-driven design (DDD)
+
 
 
 
