@@ -14,9 +14,6 @@ This project is ideal for developers learning enterprise-level patterns such as:
 	•	Separation of concerns between Domain, Application, API, and Infrastructure
 	•	API-first development using RESTful endpoints
 	•	React state management best practices using React Query
-	•	Domain-driven design (DDD)
-
-
 
 
 Backend
