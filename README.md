@@ -41,3 +41,19 @@ Handler
 Note - Controllers never see the exception.only middleware can catch it.
 
 Middleware is used to translate application level exceptions into HTTP-level responses in a centralised and consistent way.
+
+
+
+UI
+Material UI library  has been used.
+
+Components used :
+
+App
+NavBar-  AppBar
+Activity Dashboard - 
+
+
+
+
+
