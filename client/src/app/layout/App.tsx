@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-
-import { CssBaseline, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { CssBaseline, List, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
 
