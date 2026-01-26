@@ -51,7 +51,8 @@ Components used :
 
 App
 NavBar-  AppBar
-Activity Dashboard - 
+Activity Dashboard - Grid(Material UI), ActivitList 
+Activity Card - Card, CardContent, CardActions, Chip, Button, Typography
 
 
 
