@@ -60,6 +60,34 @@ It should NOT depend on:
 	•	Identity
 	•	Databases
 
+This project uses ASP.NET Core Identity with Entity Framework Core for authentication and authorization.
+
+Identity Schema & Runtime Configuration
+
+The database already contains the standard ASP.NET Core Identity tables:
+	•	AspNetUsers
+	•	AspNetRoles
+	•	AspNetUserRoles
+	•	AspNetUserClaims
+	•	AspNetRoleClaims
+	•	AspNetUserLogins
+	•	AspNetUserTokens
+
+Even when these tables already exist, ASP.NET Core Identity must still be explicitly configured at runtime to enable authentication and authorization.
+
+For this reason, Identity services are registered in the application startup using:
+	•	AddIdentity<TUser, TRole>()
+	•	AddEntityFrameworkStores<AppDbContext>()
+	•	AddDefaultTokenProviders()
+
+This ensures:
+	•	UserManager and SignInManager are available via DI
+	•	Password and security options are enforced
+	•	[Authorize], role-based, and claims-based authorization work correctly
+	•	Identity integrates properly with the existing database schema
+
+Note: Existing database tables do not automatically configure Identity at runtime.
+Persistence and runtime behavior are separate concerns.
 
 
 UI
