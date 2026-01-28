@@ -23,14 +23,12 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<User, IdentityRole>(options =>
+builder.Services.AddIdentityApiEndpoints<User>(options =>
     {
-        options.Password.RequireDigit = true;
-        options.Password.RequiredLength = 6;
-        options.Password.RequireNonAlphanumeric = false;
+        options.User.RequireUniqueEmail = true;
     })
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 
 // Adding CORS 
@@ -69,6 +67,10 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "https://localhost:3000","https://localhost:3001","http://localhost:3001"));
 
+//order of UseAuthentication and UseAuthorization is important
+app.UseAuthentication();
+app.UseAuthorization();
+
 //Enable Swagger
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -80,6 +82,7 @@ app.UseSwaggerUI(c =>
 
 
 app.MapControllers();
+app.MapGroup("api").MapIdentityApi<User>();
 
 using var scope = app.Services.CreateScope(); // we are doing this so that this gets disposed as soon we have used it
 
