@@ -2,12 +2,13 @@ using API.Middleware;
 using Application.Activities.Queries;
 using Application.Activities.Validators;
 using Application.Core;
-
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper;
+using Domain;
 using Domain.Interfaces.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Persistence.Repositories;
 
 
@@ -21,6 +22,16 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+    })
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 
 // Adding CORS 
 builder.Services.AddCors();
