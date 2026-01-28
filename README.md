@@ -48,6 +48,18 @@ CLEAN ARCHITECTURE
 MAJOR FLAW IN MY SYSTEM IS that - ai am installing Microsoft.AspNetCore.Identity.EntityFrameworkCore in my Domain project which is against the clean architecture but I am doing it to reduce complexity.
 Note: ASP.NET Core Identity should NOT live in the Domain layer. It belongs in the Infrastructure layer
 
+In ideal scenario.....Your Domain layer should contain:
+	•	Entities
+	•	Value Objects
+	•	Domain logic
+	•	Business rules
+
+It should NOT depend on:
+	•	ASP.NET Core
+	•	EF Core
+	•	Identity
+	•	Databases
+
 
 
 UI
