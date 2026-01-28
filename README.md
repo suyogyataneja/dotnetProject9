@@ -43,6 +43,12 @@ Note - Controllers never see the exception.only middleware can catch it.
 Middleware is used to translate application level exceptions into HTTP-level responses in a centralised and consistent way.
 
 
+CLEAN ARCHITECTURE
+
+MAJOR FLAW IN MY SYSTEM IS that - ai am installing Microsoft.AspNetCore.Identity.EntityFrameworkCore in my Domain project which is against the clean architecture but I am doing it to reduce complexity.
+Note: ASP.NET Core Identity should NOT live in the Domain layer. It belongs in the Infrastructure layer
+
+
 
 UI
 Material UI library  has been used.
