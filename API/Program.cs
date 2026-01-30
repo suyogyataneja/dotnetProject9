@@ -84,24 +84,29 @@ app.UseSwaggerUI(c =>
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<User>();
 
-using var scope = app.Services.CreateScope(); // we are doing this so that this gets disposed as soon we have used it
 
-
-var services = scope.ServiceProvider;
-
-try
+if (app.Environment.IsDevelopment())
 {
-    var context = services.GetRequiredService<AppDbContext>();
-    await context.Database.MigrateAsync();
-    await DbInitializer.SeedData(context); // we dont need to create an intance of the class as its a static class
+    using var scope = app.Services.CreateScope(); // we are doing this so that this gets disposed as soon we have used it
+
+
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        var userManager = services.GetRequiredService<UserManager<User>>();
+        await context.Database.MigrateAsync();
+        await DbInitializer.SeedData(context, userManager); // we dont need to create an intance of the class as its a static class
+
+    }
+    catch(Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex,"An error occured during migration");
+    }
+
 
 }
-
-catch(Exception ex)
-{
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex,"An error occured during migration");
-}
-
 
 app.Run();
