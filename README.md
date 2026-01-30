@@ -103,9 +103,6 @@ NavBar-  AppBar
 Activity Dashboard - Grid(Material UI), ActivitList 
 Activity Card - Card, CardContent, CardActions, Chip, Button, Typography
 
-Activity Dashboard - Grid(Material UI), ActivitList 
-Activity Card - Card, CardContent, CardActions, Chip, Button, Typography
-
 
 
 
