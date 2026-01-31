@@ -8,14 +8,24 @@ using AutoMapper;
 using Domain;
 using Domain.Interfaces.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Persistence.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Dependency registration
-builder.Services.AddControllers();// Add services to the container.
+// builder.Services.AddControllers();// Add services to the container.
+
+
+builder.Services.AddControllers(opt =>
+{
+    var policy =new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    opt.Filters.Add( new AuthorizeFilter(policy));    
+
+});// Add services to the container.
 
 //Adding  app's DbContext to the DI container
 builder.Services.AddDbContext<AppDbContext>(opt =>
