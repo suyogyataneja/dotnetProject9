@@ -40,6 +40,7 @@ public class ActivitiesController() : BaseApiController
 
    
    // With Mediator
+   [AllowAnonymous]
    [HttpGet]
    public async Task<ActionResult<List<Activity>>> GetActivities()
    {
@@ -58,7 +59,7 @@ public class ActivitiesController() : BaseApiController
    //    return activity;
    // }
    //
-   [Authorize]
+   // [Authorize]
    [HttpGet("{id}")]
    public async Task<ActionResult<Activity>> GetActivityDetail(string id)
    {
