@@ -1,5 +1,6 @@
 using API.DTOs;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,26 @@ public class AccountController(SignInManager<User> signInManager):BaseApiControl
         }
 
         return ValidationProblem();
+    }
+
+    [AllowAnonymous]
+    [HttpGet("user-info")]
+    public async Task<ActionResult> GetUserInfo()
+    {
+        if (User.Identity?.IsAuthenticated == false) return NoContent();
+        
+        var user = await signInManager.UserManager.GetUserAsync(User);
+        
+        if(user == null) return Unauthorized();
+
+        return Ok(new
+        {
+            user.DisplayName,
+            user.Email,
+            user.Id,
+            user.ImageUrl
+
+        });
     }
 
 }
