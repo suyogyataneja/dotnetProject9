@@ -49,4 +49,14 @@ public class AccountController(SignInManager<User> signInManager):BaseApiControl
         });
     }
 
+    [HttpPost("logout")]
+    public async Task<ActionResult> Logout()
+    {
+        await signInManager.SignOutAsync();
+        
+        
+        return NoContent();
+    }
+    
+
 }
