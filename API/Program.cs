@@ -75,7 +75,9 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 //Without CORS, anyone could open your API from their malicious website. CORS ensures only trusted origins can access your API.
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "https://localhost:3000","https://localhost:3001","http://localhost:3001"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:3000", "https://localhost:3000","https://localhost:3001","http://localhost:3001"));
 
 //order of UseAuthentication and UseAuthorization is important
 app.UseAuthentication();
