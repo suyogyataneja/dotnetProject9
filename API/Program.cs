@@ -2,25 +2,44 @@ using API.Middleware;
 using Application.Activities.Queries;
 using Application.Activities.Validators;
 using Application.Core;
-
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper;
+using Domain;
 using Domain.Interfaces.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Persistence.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Dependency registration
-builder.Services.AddControllers();// Add services to the container.
+// builder.Services.AddControllers();// Add services to the container.
+
+
+builder.Services.AddControllers(opt =>
+{
+    var policy =new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    opt.Filters.Add( new AuthorizeFilter(policy));    
+
+});// Add services to the container.
 
 //Adding  app's DbContext to the DI container
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddIdentityApiEndpoints<User>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
 
 // Adding CORS 
 builder.Services.AddCors();
@@ -56,7 +75,13 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 //Without CORS, anyone could open your API from their malicious website. CORS ensures only trusted origins can access your API.
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "https://localhost:3000","https://localhost:3001","http://localhost:3001"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:3000", "https://localhost:3000","https://localhost:3001","http://localhost:3001"));
+
+//order of UseAuthentication and UseAuthorization is important
+app.UseAuthentication();
+app.UseAuthorization();
 
 //Enable Swagger
 app.UseSwagger();
@@ -69,25 +94,31 @@ app.UseSwaggerUI(c =>
 
 
 app.MapControllers();
+app.MapGroup("api").MapIdentityApi<User>();
 
-using var scope = app.Services.CreateScope(); // we are doing this so that this gets disposed as soon we have used it
 
-
-var services = scope.ServiceProvider;
-
-try
+if (app.Environment.IsDevelopment())
 {
-    var context = services.GetRequiredService<AppDbContext>();
-    await context.Database.MigrateAsync();
-    await DbInitializer.SeedData(context); // we dont need to create an intance of the class as its a static class
+    using var scope = app.Services.CreateScope(); // we are doing this so that this gets disposed as soon we have used it
+
+
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        var userManager = services.GetRequiredService<UserManager<User>>();
+        await context.Database.MigrateAsync();
+        await DbInitializer.SeedData(context, userManager); // we dont need to create an intance of the class as its a static class
+
+    }
+    catch(Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex,"An error occured during migration");
+    }
+
 
 }
-
-catch(Exception ex)
-{
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex,"An error occured during migration");
-}
-
 
 app.Run();
