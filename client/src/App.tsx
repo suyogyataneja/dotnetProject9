@@ -4,6 +4,7 @@ import './App.css'
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import { ListItem, ListItemText } from '@mui/material';
+import axios from 'axios';
 
 function App() {
 
@@ -12,9 +13,8 @@ function App() {
   const [activities, setActivities] = useState<Activity[]> ([]);
 
   useEffect(() => {
-    fetch('https://localhost:5001/api/Activities')// fetch returns a java script promise
-      .then(response => response.json())
-      .then(data => setActivities(data))
+    axios.get<Activity[]>('https://localhost:5001/api/Activities')// fetch returns a java script promise
+      .then(response => setActivities(response.data))
       .catch(error => console.error('Error fetching activities:', error))
 
       return () => {}
