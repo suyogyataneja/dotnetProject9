@@ -16,7 +16,8 @@ This project is ideal for developers learning enterprise-level patterns such as:
 	•	React state management best practices using React Query
 
 
-Backend
+**BACKEND
+**
 
 VALIDATION
 - 	Used Fluent Validation for Validation of Dtos.
@@ -89,6 +90,9 @@ This ensures:
 Note: Existing database tables do not automatically configure Identity at runtime.
 Persistence and runtime behavior are separate concerns.
 
+**FRONT END**
+
+Using Axios to fetch data from backend.
 
 UI
 Material UI library  has been used.
