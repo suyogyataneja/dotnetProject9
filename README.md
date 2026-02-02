@@ -93,6 +93,7 @@ Persistence and runtime behavior are separate concerns.
 **FRONT END**
 
 Using Axios to fetch data from backend.
+Using MATERIAL UI to design the react components.
 
 UI
 Material UI library  has been used.
