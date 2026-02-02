@@ -1,6 +1,9 @@
 
 import { useEffect, useState } from 'react'
 import './App.css'
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import { ListItem, ListItemText } from '@mui/material';
 
 function App() {
 
@@ -19,16 +22,16 @@ function App() {
 
   return (
     <>
-      <h3 className="app">Reactivities</h3>
+      <Typography variant="h3" >Reactivities</Typography>
 
-      <ul>
+      <List>
 
         {activities.map(activity => (
-          <li key={activity.id}>
-            {activity.title}
-          </li>
+          <ListItem key={activity.id}>
+            <ListItemText >{activity.title}</ListItemText>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </>
   )
 }
