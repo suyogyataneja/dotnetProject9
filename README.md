@@ -98,6 +98,10 @@ Using MATERIAL UI to design the react components.
 UI
 Material UI library  has been used.
 
+PROJECT STRUCTURE
+Group by Feature/Routes
+
+
 Components used :
 
 App
