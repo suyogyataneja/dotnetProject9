@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from 'react'
-import './App.css'
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import { ListItem, ListItemText } from '@mui/material';
