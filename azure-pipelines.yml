@@ -1,0 +1,37 @@
+trigger:
+- main
+
+pr:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+# -------- BACKEND (.NET API) --------
+- task: UseDotNet@2
+  displayName: 'Install .NET SDK'
+  inputs:
+    packageType: sdk
+    version: '9.0.x'
+
+- script: dotnet restore
+  displayName: 'Restore API'
+
+- script: dotnet build --configuration $(buildConfiguration) --no-restore
+  displayName: 'Build API'
+
+# -------- FRONTEND (React) --------
+- task: NodeTool@0
+  displayName: 'Install Node.js'
+  inputs:
+    versionSpec: '18.x'
+
+- script: |
+    npm install
+    npm run build
+  workingDirectory: client
+  displayName: 'Build React App'
