@@ -113,6 +113,14 @@ NavBar-  AppBar
 Activity Dashboard - Grid(Material UI), ActivitList 
 Activity Card - Card, CardContent, CardActions, Chip, Button, Typography
 
+### CI/CD
+This project uses Azure DevOps Pipelines for CI.
+
+The pipeline:
+- Restores & builds the .NET API
+- Builds the React frontend
+- Is designed to support parallel jobs once hosted parallelism is available
+
 
 
 
