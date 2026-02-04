@@ -121,7 +121,10 @@ The pipeline:
 - Builds the React frontend
 - Is designed to support parallel jobs once hosted parallelism is available
 
-
+The pipeline:
+- Restores & builds the .NET API
+- Builds the React frontend
+- Is designed to support parallel jobs once hosted parallelism is available
 
 
 
