@@ -41,7 +41,7 @@ export default function NavBar() {
 
               </Box>
 
-              <Button size="large" variant="contained" color="warning"> Create Activity </Button>
+              <Button size="large" variant="contained" color="warning"> Create A Activity </Button>
 
 
 
