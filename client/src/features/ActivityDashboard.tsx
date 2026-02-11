@@ -3,7 +3,7 @@ import { Grid2, List, ListItem, ListItemText } from "@mui/material";
 
 //DEFINING PROPS WHICH OUR COMPONENT EXPECTS TO RECEIVE FROM ITS PARENT COMPONENT (APP.tsx)
 type Props = {
-    activities: Activity[];  // property name 'activities' of type array of Activity objects: type of data we expect to receive from parent component
+    activities: Activity[] // property name 'activities' of type array of Activity objects: type of data we expect to receive from parent component
 }
 
 export default function ActivityDashboard({activities}: Props) {
