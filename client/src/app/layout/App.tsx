@@ -4,6 +4,7 @@ import List from '@mui/material/List';
 import { Container, CssBaseline, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
+import ActivityDashboard from '../../features/ActivityDashboard';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 
       <Container maxWidth="xl" sx={{mt: 3}}>
 
+        <ActivityDashboard activities={activities}/>
       </Container>
 
     
