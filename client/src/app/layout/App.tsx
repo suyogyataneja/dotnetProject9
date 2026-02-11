@@ -1,7 +1,5 @@
-
 import { useEffect, useState } from 'react'
-import List from '@mui/material/List';
-import { Container, CssBaseline, ListItem, ListItemText } from '@mui/material';
+import { Container, CssBaseline } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../features/ActivityDashboard';
