@@ -1,4 +1,6 @@
-import { Grid2, List, ListItem, ListItemText } from "@mui/material";
+import { Grid2 } from "@mui/material";
+
+import ActivityList from "./ActivityList";
 
 
 //DEFINING PROPS WHICH OUR COMPONENT EXPECTS TO RECEIVE FROM ITS PARENT COMPONENT (APP.tsx)
@@ -11,14 +13,7 @@ export default function ActivityDashboard({activities}: Props) {
 <Grid2 container spacing={2}>
     <Grid2 size={9}>
         
-        <List>
-
-          {activities.map(activity => (
-            <ListItem key={activity.id}>
-              <ListItemText >{activity.title}</ListItemText>
-            </ListItem>
-          ))}
-        </List>
+ <ActivityList activities={activities}/>
 
     </Grid2>
 
