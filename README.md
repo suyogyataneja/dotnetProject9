@@ -1,4 +1,19 @@
- Reactivities — Full-Stack CRUD App (.NET 8 API + React + React Query)
+
+
+---
+
+# 🚀 Reactivities — Full-Stack CRUD Application
+
+(.NET 8 API + React + React Query)
+
+Reactivities is a modern full-stack demo application showcasing a complete CRUD workflow using enterprise-level architecture and best practices.
+
+It demonstrates clean backend architecture, modern React patterns, authentication with Identity, and CI/CD automation.
+
+---
+
+ 
+# Reactivities — Full-Stack CRUD App (.NET 8 API + React + React Query)
 
 Reactivities is a full-stack demo application that demonstrates a modern CRUD workflow using:
 also hostinv 
@@ -16,10 +31,10 @@ This project is ideal for developers learning enterprise-level patterns such as:
 	•	React state management best practices using React Query
 
 
-**BACKEND
-**
+# BACKEND
 
-VALIDATION
+
+# VALIDATION
 - 	Used Fluent Validation for Validation of Dtos.
 - 	Added and Exception Middleware which converts the exceptions thrown deep in the application layer into consistent HTTP Responses.
 - 	In my architecture, the validation happens in the MediatR pipeline and business logic lives in Application layer. HTTP concerns live om API layer.
@@ -44,7 +59,7 @@ Note - Controllers never see the exception.only middleware can catch it.
 Middleware is used to translate application level exceptions into HTTP-level responses in a centralised and consistent way.
 
 
-CLEAN ARCHITECTURE
+# CLEAN ARCHITECTURE
 
 MAJOR FLAW IN MY SYSTEM IS that - ai am installing Microsoft.AspNetCore.Identity.EntityFrameworkCore in my Domain project which is against the clean architecture but I am doing it to reduce complexity.
 Note: ASP.NET Core Identity should NOT live in the Domain layer. It belongs in the Infrastructure layer
@@ -90,7 +105,7 @@ This ensures:
 Note: Existing database tables do not automatically configure Identity at runtime.
 Persistence and runtime behavior are separate concerns.
 
-**FRONT END**
+# FRONT END
 
 Using Axios to fetch data from backend.
 Using MATERIAL UI to design the react components.
@@ -113,7 +128,7 @@ NavBar-  AppBar
 Activity Dashboard - Grid(Material UI), ActivitList 
 Activity Card - Card, CardContent, CardActions, Chip, Button, Typography
 
-### CI/CD
+# CI/CD
 This project uses Azure DevOps Pipelines for CI.
 
 The pipeline:
