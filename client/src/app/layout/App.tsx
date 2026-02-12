@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Container, CssBaseline } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
-import ActivityDashboard from '../../features/ActivityDashboard';
+import ActivityDashboard from '../../features/dashboard/ActivityDashboard';
+
 
 function App() {
 
