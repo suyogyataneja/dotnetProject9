@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Container, CssBaseline } from '@mui/material';
+import { Box, Container, CssBaseline } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
-import ActivityDashboard from '../../features/ActivityDashboard';
+import ActivityDashboard from '../../features/dashboard/ActivityDashboard';
+
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
   }, []); // Empty dependency array means this effect runs once on mount
 
   return (
-    <>
+    <Box sx={{bgcolor : '#eeee'}}>
       <CssBaseline/>
       <NavBar />
 
@@ -29,7 +30,7 @@ function App() {
       </Container>
 
     
-    </>
+    </Box>
   )
 }
 
