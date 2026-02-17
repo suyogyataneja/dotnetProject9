@@ -2,6 +2,7 @@ import { Grid2 } from "@mui/material";
 
 import ActivityList from "./ActivityList";
 import ActivityDetails from "../details/ActivityDetails";
+import ActivityForm from "../form/ActivityForm";
 
 
 //DEFINING PROPS WHICH OUR COMPONENT EXPECTS TO RECEIVE FROM ITS PARENT COMPONENT (APP.tsx)
@@ -31,6 +32,8 @@ export default function ActivityDashboard({activities,selectActivity, selectedAc
          activity={selectedActivity}
          cancelSelectActivity={cancelSelectActivity}
          />}
+
+         <ActivityForm/>
     </Grid2>
 
 </Grid2>
