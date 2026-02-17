@@ -11,6 +11,8 @@ function App() {
   // useState Hook allowing us to manage state in a functional component
   const [activities, setActivities] = useState<Activity[]> ([]);
 
+  const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
+
   useEffect(() => {
     axios.get<Activity[]>('https://localhost:5001/api/Activities')// fetch returns a java script promise
       .then(response => setActivities(response.data))
@@ -18,6 +20,16 @@ function App() {
 
       return () => {}
   }, []); // Empty dependency array means this effect runs once on mount
+
+  //using an array function to render the list of activities in the UI
+
+  const handleSelectActivity = (id: string) => {
+    setSelectedActivity(activities.find(a => a.id === id))
+  }
+  
+  const handleCancelSelectActivity = () => {
+    setSelectedActivity(undefined)
+  }
 
   return (
     <Box sx={{bgcolor : '#eeee'}}>
