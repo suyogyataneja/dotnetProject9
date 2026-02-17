@@ -4,9 +4,10 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@
 type Props = {
 
     activity: Activity // property name 'activity' of type Activity object: type of data we expect to receive from parent component
+    cancelSelectActivity: () => void; // property name 'cancelSelectActivity' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
 }
 
-export default function ActivityDetails({activity}: Props) {
+export default function ActivityDetails({activity, cancelSelectActivity}: Props) {
   return (
 
     <Card sx= {{borderRadius: 3}}>
@@ -24,7 +25,7 @@ export default function ActivityDetails({activity}: Props) {
 
         <CardActions>
             <Button color="primary" variant="contained">Edit</Button>
-            <Button color="inherit" variant="contained">Cancel</Button>
+            <Button onClick={cancelSelectActivity} color="inherit" variant="contained">Cancel</Button>
 
         </CardActions>
 
