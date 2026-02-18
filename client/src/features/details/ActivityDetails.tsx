@@ -5,9 +5,10 @@ type Props = {
 
     activity: Activity // property name 'activity' of type Activity object: type of data we expect to receive from parent component
     cancelSelectActivity: () => void; // property name 'cancelSelectActivity' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
+    openForm: (id:string) => void; // property name 'openForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component 
 }
 
-export default function ActivityDetails({activity, cancelSelectActivity}: Props) {
+export default function ActivityDetails({activity, cancelSelectActivity, openForm}: Props) {
   return (
 
     <Card sx= {{borderRadius: 3}}>
@@ -24,7 +25,7 @@ export default function ActivityDetails({activity, cancelSelectActivity}: Props)
          </CardContent>
 
         <CardActions>
-            <Button color="primary" variant="contained">Edit</Button>
+            <Button onClick={() => openForm(activity.id)} color="primary" variant="contained">Edit</Button>
             <Button onClick={cancelSelectActivity} color="inherit" variant="contained">Cancel</Button>
 
         </CardActions>

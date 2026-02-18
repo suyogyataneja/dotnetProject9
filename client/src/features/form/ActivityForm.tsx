@@ -1,6 +1,12 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 
-export default function ActivityForm() {
+type Props = {
+     // property name 'closeForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
+    activity?: Activity; // property name 'activity' of type Activity object: type of data we expect to receive from parent component
+    closeForm: () => void;
+}
+
+export default function ActivityForm({ activity, closeForm }: Props) {
   return (
     <Paper sx={{borderRadius: 3, padding: 2}}>
         <Typography variant="h5" gutterBottom color="primary" >  
@@ -8,7 +14,7 @@ export default function ActivityForm() {
         </Typography>
 
         <Box component="form" display="flex" flexDirection="column" gap={3}>
-            <TextField label="Title" />
+            <TextField label="Title" value={activity?.title}/>
 
             <TextField label="Description" multiline rows={3} />
             <TextField label="Category"  />
@@ -18,7 +24,7 @@ export default function ActivityForm() {
 
             <Box display='flex' justifyContent='space-between' alignItems='center' gap={2}>
 
-                <Button  color="inherit" fullWidth>
+                <Button onClick={closeForm} color="inherit" fullWidth>
                     Cancel
                 </Button>
 
