@@ -14,13 +14,13 @@ export default function ActivityForm({ activity, closeForm }: Props) {
         </Typography>
 
         <Box component="form" display="flex" flexDirection="column" gap={3}>
-            <TextField label="Title" value={activity?.title}/>
+            <TextField label="Title" defaultValue={activity?.title}/>
 
-            <TextField label="Description" multiline rows={3} />
-            <TextField label="Category"  />
-            <TextField label="Date" type="date" />
-            <TextField label="City"/>
-            <TextField label="Venue" />
+            <TextField label="Description" defaultValue={activity?.description} multiline rows={3} />
+            <TextField label="Category" defaultValue={activity?.category} />
+            <TextField label="Date" type="date" defaultValue={activity?.date} />
+            <TextField label="City" defaultValue={activity?.city} />
+            <TextField label="Venue" defaultValue={activity?.venue} />
 
             <Box display='flex' justifyContent='space-between' alignItems='center' gap={2}>
 
