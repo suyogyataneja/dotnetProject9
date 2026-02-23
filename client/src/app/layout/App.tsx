@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { act, Activity, useEffect, useState } from 'react'
 import { Box, Container, CssBaseline } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
@@ -44,6 +44,22 @@ function App() {
     setEditMode(false);
   }
 
+  const handleSubmitForm = (activity: Activity) => {
+
+    if(activity.id) {
+
+      setActivities(activities.map(x=> x.id === activity.id ? activity : x));
+
+    }
+      else {
+        const newActivity = {...activity, id: activities.length.toString()}; 
+        setSelectedActivity(newActivity); 
+        setActivities([...activities, newActivity]);
+
+      }
+    setEditMode(false);
+  }
+
   return (
     <Box sx={{bgcolor : '#eeee'}}>
       <CssBaseline/>
@@ -60,6 +76,8 @@ function App() {
       
         openForm={handleOpenForm}
         closeForm={handleFormClose}
+        submitForm={handleSubmitForm}   
+
         />
       </Container>
 
