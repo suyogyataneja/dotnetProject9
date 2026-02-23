@@ -5,9 +5,10 @@ type Props = {
      // property name 'closeForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
     activity?: Activity; // property name 'activity' of type Activity object: type of data we expect to receive from parent component
     closeForm: () => void;
+    submitForm: (activity: Activity) => void; // property name 'submitForm' of type function that takes an Activity object and returns void: type of data we expect to receive from parent component
 }
 
-export default function ActivityForm({ activity, closeForm }: Props) {
+export default function ActivityForm({ activity, closeForm, submitForm }: Props) {
 
 const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 
@@ -23,7 +24,12 @@ const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     formData.forEach((value, key) => {
         data[key] = value;
     });
-    console.log(data);
+    
+    if(activity) {
+        data.id = activity.id; // If editing an existing activity, include the id in the data object
+    }
+    // console.log(data);
+    submitForm(data as unknown as Activity); // Call the submitForm function passed from the parent component with the form data
 }
 
 

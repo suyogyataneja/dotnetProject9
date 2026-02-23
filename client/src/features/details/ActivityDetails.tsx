@@ -1,4 +1,3 @@
-import type { BorderAll } from "@mui/icons-material"
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 
 type Props = {
