@@ -2,7 +2,15 @@
 import { Group } from "@mui/icons-material";
 import { AppBar,  Toolbar,  Typography,  Button, Box, Container, MenuItem } from "@mui/material";
 
-export default function NavBar() {
+
+  type Props = {
+    openForm: () => void; // property name 'openForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
+  }
+
+
+export default function NavBar({openForm}: Props) {
+
+
 
     return (
     <Box sx={{ flexGrow: 1 }}>
@@ -41,7 +49,7 @@ export default function NavBar() {
 
               </Box>
 
-              <Button size="large" variant="contained" color="warning"> Create Activity </Button>
+              <Button onClick={openForm} size="large" variant="contained" color="warning"> Create Activity </Button>
 
 
 
