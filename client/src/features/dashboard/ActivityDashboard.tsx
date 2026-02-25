@@ -15,6 +15,7 @@ type Props = {
     editMode: boolean; // property name 'editMode' of type boolean: type of data we expect to receive from parent component
     closeForm: () => void; // property name 'closeForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
     submitForm: (activity: Activity) => void; // property name 'submitForm' of type function that takes an Activity object and returns void: type of data we expect to receive from parent component
+    deleteActivity: (id: string) => void; // property name 'deleteActivity' of type function that takes a string argument and returns void: type of data we expect to receive from parent component
   }
 
 
@@ -25,7 +26,9 @@ export default function ActivityDashboard({activities,selectActivity,
   openForm,
   editMode,
   closeForm,
-  submitForm}: Props) {
+  submitForm,
+  deleteActivity
+}: Props) {
   return (
 <Grid2 container spacing={3}>
     <Grid2 size={9}>
@@ -33,6 +36,8 @@ export default function ActivityDashboard({activities,selectActivity,
  <ActivityList 
  activities={activities}
  selectActivity={selectActivity}
+deleteActivity={deleteActivity}
+
 
  />
 
