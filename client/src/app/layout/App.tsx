@@ -1,4 +1,4 @@
-import { act, Activity, useEffect, useState } from 'react'
+import {useEffect, useState } from 'react'
 import { Box, Container, CssBaseline } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
@@ -60,6 +60,11 @@ function App() {
     setEditMode(false);
   }
 
+
+  const handleDelete = (id: string) => {
+    setActivities(activities.filter(x => x.id !== id));
+  }
+
   return (
     <Box sx={{bgcolor : '#eeee'}}>
       <CssBaseline/>
@@ -77,6 +82,7 @@ function App() {
         openForm={handleOpenForm}
         closeForm={handleFormClose}
         submitForm={handleSubmitForm}   
+        deleteActivity={handleDelete}
 
         />
       </Container>
