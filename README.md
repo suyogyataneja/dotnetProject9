@@ -127,7 +127,7 @@ Activity Card - Card, CardContent, CardActions, Chip, Button, Typography
 NavBar-  AppBar
 Activity Dashboard - Grid(Material UI), ActivitList 
 Activity Card - Card, CardContent, CardActions, Chip, Button, Typography
-
+Activity Form - Paper, Typography, Box, TextField, Button
 # CI/CD
 This project uses Azure DevOps Pipelines for CI.
 
