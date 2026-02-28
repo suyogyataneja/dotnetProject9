@@ -140,5 +140,15 @@ This project uses Azure DevOps Pipelines for CI.
 The pipeline:
 - Restores & builds the .NET API
 - Builds the React frontend
+- Is designed to The pipeline:
+- Restores & builds the .NET API
+- Builds the React frontend
 - Is designed to support parallel jobs once hosted parallelism is available
 - CI/CD is implemented on azure devops and github actions.
+support parallel jobs once hosted parallelism is available
+- CI/CD is implemented on azure devops and github actions.The pipeline:
+- Restores & builds the .NET API
+- Builds the React frontend
+- Is designed to support parallel jobs once hosted parallelism is available
+- CI/CD is implemented on azure devops and github actions.
+
