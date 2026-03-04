@@ -1,6 +1,8 @@
+using MediatR;
+
 namespace Domain.Events;
 
-public class ActivityCreatedEvent
+public class ActivityCreatedEvent : INotification
 {
     public Activity Activity { get; set; }
 
