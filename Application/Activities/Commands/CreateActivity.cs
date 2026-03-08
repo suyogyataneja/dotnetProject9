@@ -2,6 +2,7 @@ using Application.Activities.DTOs;
 using Application.Core;
 using AutoMapper;
 using Domain;
+using Domain.Events;
 using FluentValidation;
 using MediatR;
 using Persistence;
@@ -16,7 +17,7 @@ public class CreateActivity
         public required CreateActivityDto ActivityDto { get; set; }
     }
     
-    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, Result<string>>
+    public class Handler(AppDbContext context, IMapper mapper, IMediator mediator) : IRequestHandler<Command, Result<string>>
     {
         public async Task<Result<string>> Handle(Command request, CancellationToken cancellationToken)
         {
@@ -30,6 +31,8 @@ public class CreateActivity
             
             if(!result) return Result<string>.Failure("Failed to create activity ",400);
             // return request.Activity.Id;
+            
+            await mediator.Publish(new ActivityCreatedEvent(activity), cancellationToken);
 
             return Result<string>.Success(activity.Id);
         }

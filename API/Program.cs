@@ -1,4 +1,5 @@
 using API.Middleware;
+using Application.Activities.EventHandlers;
 using Application.Activities.Queries;
 using Application.Activities.Validators;
 using Application.Core;
@@ -11,6 +12,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.OpenApi.Models;
 using Persistence.Repositories;
 
 
@@ -62,9 +64,42 @@ builder.Services.AddTransient<ExceptionMiddleware>(); // this exceptiomiddleware
 
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 
+
+// Register Httpclient
+builder.Services.AddHttpClient<ActivityCreatedEventHandler>();
+
+
 // Adding Swagger services 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+//builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Enter Bearer token like : Bearer {token}",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+});
 
 var app = builder.Build();
 
