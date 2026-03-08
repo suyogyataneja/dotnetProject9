@@ -1,27 +1,37 @@
-import {useEffect, useState } from 'react'
-import { Box, Container, CssBaseline } from '@mui/material';
+import { useState } from 'react'
+import { Box, Container, CssBaseline, Typography } from '@mui/material';
 import axios from 'axios';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../features/dashboard/ActivityDashboard';
+import { useQuery } from '@tanstack/react-query';
 
 
 function App() {
 
 
   // useState Hook allowing us to manage state in a functional component
-  const [activities, setActivities] = useState<Activity[]> ([]);
+  // const [activities, setActivities] = useState<Activity[]> ([]);
 
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
 
   const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-    axios.get<Activity[]>('https://localhost:5001/api/Activities')// fetch returns a java script promise
-      .then(response => setActivities(response.data))
-      .catch(error => console.error('Error fetching activities:', error))
+  const { data: activities, isPending } = useQuery({
+    queryKey: ['activities'],
+    queryFn: async () => {
+      
+      const response = await axios.get<Activity[]>('https://localhost:5001/api/Activities');
+      return response.data;
+    }
+  }); // Initialize the query client
 
-      return () => {}
-  }, []); // Empty dependency array means this effect runs once on mount
+  // useEffect(() => {
+  //   axios.get<Activity[]>('https://localhost:5001/api/Activities')// fetch returns a java script promise
+  //     .then(response => setActivities(response.data))
+  //     .catch(error => console.error('Error fetching activities:', error))
+
+  //     return () => {}
+  // }, []); // Empty dependency array means this effect runs once on mount
 
   //using an array function to render the list of activities in the UI
 
@@ -46,23 +56,25 @@ function App() {
 
   const handleSubmitForm = (activity: Activity) => {
 
-    if(activity.id) {
+    // if(activity.id) {
 
-      setActivities(activities.map(x=> x.id === activity.id ? activity : x));
+    //   setActivities(activities.map(x=> x.id === activity.id ? activity : x));
 
-    }
-      else {
-        const newActivity = {...activity, id: activities.length.toString()}; 
-        setSelectedActivity(newActivity); 
-        setActivities([...activities, newActivity]);
+    // }
+    //   else {
+    //     const newActivity = {...activity, id: activities.length.toString()}; 
+    //     setSelectedActivity(newActivity); 
+    //     setActivities([...activities, newActivity]);
 
-      }
+    //   }
+    console.log(activity);
     setEditMode(false);
   }
 
 
   const handleDelete = (id: string) => {
-    setActivities(activities.filter(x => x.id !== id));
+    // setActivities(activities.filter(x => x.id !== id));
+    console.log(id);
   }
 
   return (
@@ -71,20 +83,27 @@ function App() {
       <NavBar openForm={handleOpenForm}  />
 
       <Container maxWidth="xl" sx={{mt: 3}}>
+        {!activities || isPending ?( 
+          <Typography>Loading activities...</Typography> )
+            :(
 
-        <ActivityDashboard 
-        activities={activities}
-        selectActivity={handleSelectActivity}
-        cancelSelectActivity={handleCancelSelectActivity}
-        selectedActivity={selectedActivity}
-        editMode={editMode}
-      
-        openForm={handleOpenForm}
-        closeForm={handleFormClose}
-        submitForm={handleSubmitForm}   
-        deleteActivity={handleDelete}
+            <ActivityDashboard 
+            activities={activities}
+            selectActivity={handleSelectActivity}
+            cancelSelectActivity={handleCancelSelectActivity}
+            selectedActivity={selectedActivity}
+            editMode={editMode}
+          
+            openForm={handleOpenForm}
+            closeForm={handleFormClose}
+            submitForm={handleSubmitForm}   
+            deleteActivity={handleDelete}
 
-        />
+            />
+
+        )}
+
+
       </Container>
 
     
