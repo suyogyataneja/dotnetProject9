@@ -78,7 +78,7 @@ function App() {
   }
 
   return (
-    <Box sx={{bgcolor : '#eeee'}}>
+    <Box sx={{bgcolor : '#eeee', minHeight: '100vh'}}>
       <CssBaseline/>
       <NavBar openForm={handleOpenForm}  />
 
