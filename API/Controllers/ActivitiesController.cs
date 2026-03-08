@@ -70,6 +70,7 @@ public class ActivitiesController() : BaseApiController
 
    }
 
+   [AllowAnonymous]
    [HttpPost]
    public async Task<ActionResult<string>> CreateActivity(CreateActivityDto activityDto)
    {
