@@ -1,16 +1,18 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import type { FormEvent } from "react";
+import { use, type FormEvent } from "react";
+import { useActivities } from "../../lib/hooks/useActivities";
 
 type Props = {
      // property name 'closeForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
     activity?: Activity; // property name 'activity' of type Activity object: type of data we expect to receive from parent component
     closeForm: () => void;
-    submitForm: (activity: Activity) => void; // property name 'submitForm' of type function that takes an Activity object and returns void: type of data we expect to receive from parent component
 }
 
-export default function ActivityForm({ activity, closeForm, submitForm }: Props) {
+export default function ActivityForm({ activity, closeForm }: Props) {
 
-const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+const {updateActivity} = useActivities(); // Custom hook to fetch activities using react-query
+
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
     // Handle form submission logic here
     // You can access the form values using the state or refs
@@ -25,11 +27,19 @@ const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         data[key] = value;
     });
     
-    if(activity) {
+    // if(activity) {
+    //     data.id = activity.id; // If editing an existing activity, include the id in the data object
+    // }
+
+    if(activity){
+
         data.id = activity.id; // If editing an existing activity, include the id in the data object
+        await updateActivity.mutateAsync(data as unknown as Activity); // Call the updateActivity mutation function with the form data
+        closeForm(); // Close the form after successful update
     }
+
     // console.log(data);
-    submitForm(data as unknown as Activity); // Call the submitForm function passed from the parent component with the form data
+    // submitForm(data as unknown as Activity); // Call the submitForm function passed from the parent component with the form data
 }
 
 
@@ -54,7 +64,13 @@ const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
                     Cancel
                 </Button>
 
-                <Button  type="submit" color="success"  variant="contained" fullWidth>
+                <Button  
+                type="submit"
+                color="success"
+                variant="contained" 
+                disabled={updateActivity.isPending}
+                fullWidth>
+                
                     Submit
                 </Button>
 
