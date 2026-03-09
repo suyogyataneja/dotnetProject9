@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { Box, Container, CssBaseline, Typography } from '@mui/material';
-import axios from 'axios';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../features/dashboard/ActivityDashboard';
-import { useQuery } from '@tanstack/react-query';
+import { useActivities } from '../../lib/hooks/useActivities';
 
 
 function App() {
@@ -16,14 +15,10 @@ function App() {
 
   const [editMode, setEditMode] = useState(false);
 
-  const { data: activities, isPending } = useQuery({
-    queryKey: ['activities'],
-    queryFn: async () => {
-      
-      const response = await axios.get<Activity[]>('https://localhost:5001/api/Activities');
-      return response.data;
-    }
-  }); // Initialize the query client
+  const {activities, isPending} = useActivities(); // Custom hook to fetch activities using react-query
+  
+
+
 
   // useEffect(() => {
   //   axios.get<Activity[]>('https://localhost:5001/api/Activities')// fetch returns a java script promise
@@ -36,7 +31,7 @@ function App() {
   //using an array function to render the list of activities in the UI
 
   const handleSelectActivity = (id: string) => {
-    setSelectedActivity(activities.find(a => a.id === id))
+    setSelectedActivity(activities!.find(a => a.id === id))
   }
   
   const handleCancelSelectActivity = () => {
