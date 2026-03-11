@@ -46,7 +46,7 @@ deleteActivity={deleteActivity}
         {selectedActivity &&  !editMode && 
         <ActivityDetails 
         
-        activity={selectedActivity}
+        selectedActivity={selectedActivity}
          cancelSelectActivity={cancelSelectActivity}
          openForm={openForm}
          />}

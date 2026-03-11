@@ -21,7 +21,7 @@ const queryClient = useQueryClient();
   const updateActivity =  useMutation({
     mutationFn : async (activity: Activity) => {
 
-      await agent.put(`/Activities/${activity.id}`, activity);
+      await agent.put('/Activities', activity);
     },
     onSuccess: async () => {      // Invalidate and refetch
       await queryClient.invalidateQueries({ queryKey: ['activities'] });

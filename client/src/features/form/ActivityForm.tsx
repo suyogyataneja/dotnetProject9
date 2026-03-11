@@ -1,5 +1,5 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-import { use, type FormEvent } from "react";
+import { type FormEvent } from "react";
 import { useActivities } from "../../lib/hooks/useActivities";
 
 type Props = {
@@ -54,7 +54,14 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
             <TextField name='description' label="Description" defaultValue={activity?.description} multiline rows={3} />
             <TextField name='category' label="Category" defaultValue={activity?.category} />
-            <TextField name='date' label="Date" type="date" defaultValue={activity?.date} />
+            <TextField name='date' label="Date" type="date" 
+            defaultValue={activity?.date 
+                ? new Date(activity.date).toISOString().split('T')[0] // Format the date to 'YYYY-MM-DD' for the input field
+                :  new Date().toISOString().split('T')[0]// If no date is provided, use the current date as default value
+            } 
+            
+            
+            />
             <TextField name='city' label="City" defaultValue={activity?.city} />
             <TextField name='venue' label="Venue" defaultValue={activity?.venue} />
 
