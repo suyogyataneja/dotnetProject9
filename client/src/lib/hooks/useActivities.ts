@@ -31,12 +31,28 @@ const queryClient = useQueryClient();
 
   })
 
+  const createActivity = useMutation({
+
+    mutationFn : async (activity: Activity) => {
+      await agent.post('/Activities', activity);
+    },
+    onSuccess: async () => {      // Invalidate and refetch
+
+      await queryClient.invalidateQueries({ 
+        queryKey: ['activities']
+
+       })
+      }
+  });
+      
+
 
 
     return {
         activities,
         isPending,
-        updateActivity
+        updateActivity,
+        createActivity
     }
 
 }
