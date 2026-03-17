@@ -10,7 +10,7 @@ type Props = {
 
 export default function ActivityForm({ activity, closeForm }: Props) {
 
-const {updateActivity} = useActivities(); // Custom hook to fetch activities using react-query
+const {updateActivity, createActivity} = useActivities(); // Custom hook to fetch activities using react-query
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
@@ -36,6 +36,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         data.id = activity.id; // If editing an existing activity, include the id in the data object
         await updateActivity.mutateAsync(data as unknown as Activity); // Call the updateActivity mutation function with the form data
         closeForm(); // Close the form after successful update
+    }else{
+
+        await createActivity.mutateAsync(data as unknown as Activity); // Call the createActivity mutation function with the form data
+        closeForm(); // Close the form after successful creation
     }
 
     // console.log(data);
