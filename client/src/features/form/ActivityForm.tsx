@@ -79,7 +79,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 type="submit"
                 color="success"
                 variant="contained" 
-                disabled={updateActivity.isPending}
+                disabled={updateActivity.isPending || createActivity.isPending}
                 fullWidth>
                 
                     Submit
