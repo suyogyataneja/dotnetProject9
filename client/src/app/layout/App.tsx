@@ -48,14 +48,7 @@ function App() {
   const handleFormClose = () => {
     setEditMode(false);
   }
-
-
-
-  const handleDelete = (id: string) => {
-    // setActivities(activities.filter(x => x.id !== id));
-    console.log(id);
-  }
-
+  
   return (
     <Box sx={{bgcolor : '#eeee', minHeight: '100vh'}}>
       <CssBaseline/>
