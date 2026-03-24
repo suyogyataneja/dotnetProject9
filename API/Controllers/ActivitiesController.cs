@@ -77,7 +77,7 @@ public class ActivitiesController() : BaseApiController
       // return await Mediator.Send(new CreateActivity.Command { ActivityDto = activityDto });
       return HandleResult(await Mediator.Send(new CreateActivity.Command { ActivityDto = activityDto }));
    }
-
+   [AllowAnonymous]
    [HttpPut]
    public async Task<ActionResult> EditActivity(EditActivityDto activity)
    {
@@ -85,8 +85,8 @@ public class ActivitiesController() : BaseApiController
       return HandleResult(await Mediator.Send(new EditActivity.Command { ActivityDto = activity }));
    }
 
+   [AllowAnonymous]
    [HttpDelete("{id}")]
-
    public async Task<ActionResult> DeleteActivity(string id)
    {
       return HandleResult(await Mediator.Send(new DeleteActivity.Command { Id = id }));
