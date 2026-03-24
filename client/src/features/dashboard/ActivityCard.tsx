@@ -1,12 +1,14 @@
 import { Box, Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material"
+import { useActivities } from "../../lib/hooks/useActivities";
 
 type Props = {
     activity: Activity // property name 'activities' of type array of Activity objects: type of data we expect to receive from parent component
     selectActivity: (id: string) => void ;// property name 'selectActivity' of type function that takes a string argument and returns void: type of data we expect to receive from parent component
-    deleteActivity : (id: string) => void; // property name 'deleteActivity' of type function that takes a string argument and returns void: type of data we expect to receive from parent component
   }
 
-export default function ActivityCard({activity, selectActivity, deleteActivity  }: Props) {
+export default function ActivityCard({activity, selectActivity  }: Props) {
+
+  const {deleteActivity} = useActivities(); // Custom hook to fetch activities using react-query
   return (
      <Card sx={{borderRadius: 3}}>
       <CardContent>
@@ -35,7 +37,11 @@ export default function ActivityCard({activity, selectActivity, deleteActivity  
         <Button  onClick= {() => selectActivity(activity.id)} size="medium" variant="contained">
           View</Button>
 
-        <Button onClick={() => deleteActivity(activity.id)} size="medium" variant="contained" color="error">
+        <Button 
+        onClick={() => deleteActivity.mutate(activity.id)}
+        disabled={deleteActivity?.isPending}
+        size="medium"
+        variant="contained" color="error">
           Delete</Button>
         </Box>
 

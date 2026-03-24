@@ -44,7 +44,19 @@ const queryClient = useQueryClient();
        })
       }
   });
+
+  
+  const deleteActivity = useMutation({ 
+    mutationFn : async (id: string) => {
+    await agent.delete(`/Activities/${id}`);
+  },
+  onSuccess: async () => {      // Invalidate and refetch
+    await queryClient.invalidateQueries({
+       queryKey: ['activities'] });
+  }
+});
       
+  
 
 
 
@@ -52,7 +64,8 @@ const queryClient = useQueryClient();
         activities,
         isPending,
         updateActivity,
-        createActivity
+        createActivity,
+        deleteActivity
     }
 
 }

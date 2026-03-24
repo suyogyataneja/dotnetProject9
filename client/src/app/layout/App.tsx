@@ -48,7 +48,7 @@ function App() {
   const handleFormClose = () => {
     setEditMode(false);
   }
-  
+
   return (
     <Box sx={{bgcolor : '#eeee', minHeight: '100vh'}}>
       <CssBaseline/>
@@ -69,7 +69,6 @@ function App() {
             openForm={handleOpenForm}
             closeForm={handleFormClose}
        
-            deleteActivity={handleDelete}
 
             />
 
