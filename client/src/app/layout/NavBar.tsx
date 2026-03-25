@@ -1,6 +1,7 @@
 
 import { Group } from "@mui/icons-material";
 import { AppBar,  Toolbar,  Typography,  Button, Box, Container, MenuItem } from "@mui/material";
+import { NavLink } from "react-router";
 
 
 
@@ -15,24 +16,24 @@ export default function NavBar() {
         <Container maxWidth="xl">
             <Toolbar sx ={{display:'flex', justifyContent:'space-between'}}>
               <Box>
-                <MenuItem sx={{display: 'flex', gap: 2}}>
+                <MenuItem component={NavLink} to="/" sx={{display: 'flex', gap: 2}}>
                     <Group fontSize="large"/>
-                    <Typography variant="h4" fontWeight='bold'>Reactivities</Typography>
+                    <Typography  variant="h4" fontWeight='bold'>Reactivities</Typography>
                 </MenuItem>
               </Box>
 
               <Box sx={{display: 'flex', gap: 4}}>
-                <MenuItem sx={{
+                <MenuItem component={NavLink} to="/activities" sx={{
                     fontSize: '1.2rem', textTransform: 'uppercase', fontWeight: 'bold'
                     }}>
                         Activities
                 
                 </MenuItem>
 
-                         <MenuItem sx={{
+                <MenuItem component={NavLink} to="/create-activity" sx={{
                     fontSize: '1.2rem', textTransform: 'uppercase', fontWeight: 'bold'
                     }}>
-                        About
+                        Create Activity
                 
                 </MenuItem>
 
