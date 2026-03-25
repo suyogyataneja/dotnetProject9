@@ -11,6 +11,7 @@ using Persistence;
 
 namespace API.Controllers;
 
+[AllowAnonymous]
 public class ActivitiesController() : BaseApiController
 {
    // private readonly IMediator _mediator;   
@@ -60,6 +61,7 @@ public class ActivitiesController() : BaseApiController
    // }
    //
    // [Authorize]
+   [AllowAnonymous]
    [HttpGet("{id}")]
    public async Task<ActionResult<Activity>> GetActivityDetail(string id)
    {
