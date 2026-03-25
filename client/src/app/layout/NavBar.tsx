@@ -1,14 +1,12 @@
 
 import { Group } from "@mui/icons-material";
 import { AppBar,  Toolbar,  Typography,  Button, Box, Container, MenuItem } from "@mui/material";
+import { NavLink } from "react-router";
+import MenuItemLink from "../shared/components/MenuItemLink";
 
 
-  type Props = {
-    openForm: () => void; // property name 'openForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
-  }
 
-
-export default function NavBar({openForm}: Props) {
+export default function NavBar() {
 
 
 
@@ -19,26 +17,23 @@ export default function NavBar({openForm}: Props) {
         <Container maxWidth="xl">
             <Toolbar sx ={{display:'flex', justifyContent:'space-between'}}>
               <Box>
-                <MenuItem sx={{display: 'flex', gap: 2}}>
+                
+                <MenuItem component={NavLink} to="/" sx={{display: 'flex', gap: 2}}>
                     <Group fontSize="large"/>
-                    <Typography variant="h4" fontWeight='bold'>Reactivities</Typography>
+                    <Typography  variant="h4" fontWeight='bold'>Reactivities</Typography>
                 </MenuItem>
               </Box>
 
               <Box sx={{display: 'flex', gap: 4}}>
-                <MenuItem sx={{
-                    fontSize: '1.2rem', textTransform: 'uppercase', fontWeight: 'bold'
-                    }}>
+                <MenuItemLink to="/activities">
                         Activities
                 
-                </MenuItem>
+                </MenuItemLink>
 
-                         <MenuItem sx={{
-                    fontSize: '1.2rem', textTransform: 'uppercase', fontWeight: 'bold'
-                    }}>
-                        About
+                <MenuItemLink to="/createActivity" >
+                        Create Activity
                 
-                </MenuItem>
+                </MenuItemLink>
 
                          <MenuItem sx={{
                     fontSize: '1.2rem', textTransform: 'uppercase', fontWeight: 'bold'
@@ -49,7 +44,7 @@ export default function NavBar({openForm}: Props) {
 
               </Box>
 
-              <Button onClick={openForm} size="large" variant="contained" color="warning"> Create Activity </Button>
+              <Button onClick={() => {}} size="large" variant="contained" color="warning"> Create Activity </Button>
 
 
 

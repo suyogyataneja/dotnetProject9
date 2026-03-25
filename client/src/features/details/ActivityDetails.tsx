@@ -1,19 +1,18 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
+import { Link, useNavigate, useParams } from "react-router";
 import { useActivities } from "../../lib/hooks/useActivities";
 
-type Props = {
 
-    selectedActivity: Activity // property name 'activity' of type Activity object: type of data we expect to receive from parent component
-    cancelSelectActivity: () => void; // property name 'cancelSelectActivity' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
-    openForm: (id:string) => void; // property name 'openForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component 
-}
+export default function ActivityDetails() {
 
-export default function ActivityDetails({selectedActivity, cancelSelectActivity, openForm}: Props) {
 
-  const {activities}  = useActivities(); // Custom hook to fetch activities using react-query
-  const activity = activities?.find(x => x.id === selectedActivity.id); // Find the activity with the matching id from the activities array
-  
-  if(!activity) return <Typography variant="h5" color="error">Loading......</Typography> // If no activity is found, display an error message
+  const navigate = useNavigate(); // Hook to programmatically navigate to different routes
+  const {id} = useParams(); // Get the activity id from the URL using the usePagination hook
+  const {activity, isLoadingActivity}= useActivities(id); // Custom hook to fetch activities using react-query, passing the activity id to fetch the specific activity details
+
+
+  if(isLoadingActivity) return <Typography variant="h5" color="primary">Loading...</Typography> // Display a loading message while the activity details are being fetched
+  if(!activity) return <Typography variant="h5" color="error">Activity not found</Typography> // If no activity is found, display an error message
   return (
 
     <Card sx= {{borderRadius: 3}}>
@@ -30,8 +29,10 @@ export default function ActivityDetails({selectedActivity, cancelSelectActivity,
          </CardContent>
 
         <CardActions>
-            <Button onClick={() => openForm(activity.id)} color="primary" variant="contained">Edit</Button>
-            <Button onClick={cancelSelectActivity} color="inherit" variant="contained">Cancel</Button>
+
+            
+            <Button component={Link} to={`/manage/${activity.id}`} color="primary" variant="contained">Edit</Button>
+            <Button onClick={() => navigate('/activities')} color="inherit" variant="contained">Cancel</Button>
 
         </CardActions>
 

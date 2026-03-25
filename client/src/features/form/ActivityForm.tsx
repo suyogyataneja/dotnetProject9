@@ -1,16 +1,14 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { type FormEvent } from "react";
 import { useActivities } from "../../lib/hooks/useActivities";
+import { useNavigate, useParams } from "react-router";
 
-type Props = {
-     // property name 'closeForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
-    activity?: Activity; // property name 'activity' of type Activity object: type of data we expect to receive from parent component
-    closeForm: () => void;
-}
+export default function ActivityForm() {
 
-export default function ActivityForm({ activity, closeForm }: Props) {
+const {id}= useParams(); // Get the activity id from the URL using the usePagination hook
+const {updateActivity, createActivity,activity, isLoadingActivity} = useActivities(id); // Custom hook to fetch activities using react-query
+const navigate = useNavigate(); // Hook to programmatically navigate to different routes
 
-const {updateActivity, createActivity} = useActivities(); // Custom hook to fetch activities using react-query
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
@@ -35,13 +33,21 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
         data.id = activity.id; // If editing an existing activity, include the id in the data object
         await updateActivity.mutateAsync(data as unknown as Activity); // Call the updateActivity mutation function with the form data
-        closeForm(); // Close the form after successful update
+        
+        navigate(`/activities/${activity.id}`); // Navigate to the activity details page after successful update
+
+
     }else{
 
-        await createActivity.mutateAsync(data as unknown as Activity); // Call the createActivity mutation function with the form data
-        closeForm(); // Close the form after successful creation
+        await createActivity.mutate(data as unknown as Activity, {
+            onSuccess: (id) => {
+                navigate(`/activities/${id}`);
+            }
+    }); // Call the createActivity mutation function with the form data
+        // Close the form after successful creation
     }
 
+    if(isLoadingActivity) return <Typography variant="h5" color="primary">Loading...</Typography> // Display a loading message while the activity details are being fetched 
     // console.log(data);
     // submitForm(data as unknown as Activity); // Call the submitForm function passed from the parent component with the form data
 }
@@ -50,7 +56,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   return (
     <Paper sx={{borderRadius: 3, padding: 2}}>
         <Typography variant="h5" gutterBottom color="primary" >  
-        Create Activity
+            {activity?'Edit Activity':'Create Activity'} {/* Display "Edit Activity" if an activity is being edited, otherwise display "Create Activity" */}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={3}>
@@ -71,7 +77,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
             <Box display='flex' justifyContent='space-between' alignItems='center' gap={2}>
 
-                <Button onClick={closeForm} color="inherit" fullWidth>
+                <Button  color="inherit" fullWidth>
                     Cancel
                 </Button>
 
