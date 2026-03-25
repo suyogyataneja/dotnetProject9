@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material"
 import { useActivities } from "../../lib/hooks/useActivities";
+import { Link } from "react-router";
 
 type Props = {
     activity: Activity // property name 'activities' of type array of Activity objects: type of data we expect to receive from parent component
@@ -34,7 +35,7 @@ export default function ActivityCard({activity  }: Props) {
         <Chip label={activity.category} variant="outlined"/>
         <Box display='flex' gap={3}>
 
-        <Button  onClick= {() =>{}} size="medium" variant="contained">
+        <Button component={Link} to={`/activities/${activity.id}`} size="medium" variant="contained">
           View</Button>
 
         <Button 

@@ -1,18 +1,14 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
-import { useActivities } from "../../lib/hooks/useActivities";
+import { Link, useNavigate } from "react-router-dom";
 
-type Props = {
 
-    selectedActivity: Activity // property name 'activity' of type Activity object: type of data we expect to receive from parent component
-    cancelSelectActivity: () => void; // property name 'cancelSelectActivity' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
-    openForm: (id:string) => void; // property name 'openForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component 
-}
+export default function ActivityDetails() {
 
-export default function ActivityDetails({selectedActivity, cancelSelectActivity, openForm}: Props) {
 
-  const {activities}  = useActivities(); // Custom hook to fetch activities using react-query
-  const activity = activities?.find(x => x.id === selectedActivity.id); // Find the activity with the matching id from the activities array
-  
+  const navigate = useNavigate(); // Hook to programmatically navigate to different routes
+  const activity = {} as Activity; // Placeholder for the activity object, which will be fetched using the useActivities hook
+
+
   if(!activity) return <Typography variant="h5" color="error">Loading......</Typography> // If no activity is found, display an error message
   return (
 
@@ -30,8 +26,10 @@ export default function ActivityDetails({selectedActivity, cancelSelectActivity,
          </CardContent>
 
         <CardActions>
-            <Button onClick={() => openForm(activity.id)} color="primary" variant="contained">Edit</Button>
-            <Button onClick={cancelSelectActivity} color="inherit" variant="contained">Cancel</Button>
+
+            
+            <Button component={Link} to={`/activities/${activity.id}`} color="primary" variant="contained">Edit</Button>
+            <Button onClick={() => navigate('/activities')} color="inherit" variant="contained">Cancel</Button>
 
         </CardActions>
 
