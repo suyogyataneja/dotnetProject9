@@ -3,10 +3,10 @@ import { useActivities } from "../../lib/hooks/useActivities";
 
 type Props = {
     activity: Activity // property name 'activities' of type array of Activity objects: type of data we expect to receive from parent component
-    selectActivity: (id: string) => void ;// property name 'selectActivity' of type function that takes a string argument and returns void: type of data we expect to receive from parent component
+
   }
 
-export default function ActivityCard({activity, selectActivity  }: Props) {
+export default function ActivityCard({activity  }: Props) {
 
   const {deleteActivity} = useActivities(); // Custom hook to fetch activities using react-query
   return (
@@ -34,7 +34,7 @@ export default function ActivityCard({activity, selectActivity  }: Props) {
         <Chip label={activity.category} variant="outlined"/>
         <Box display='flex' gap={3}>
 
-        <Button  onClick= {() => selectActivity(activity.id)} size="medium" variant="contained">
+        <Button  onClick= {() =>{}} size="medium" variant="contained">
           View</Button>
 
         <Button 

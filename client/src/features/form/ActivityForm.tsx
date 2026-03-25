@@ -2,16 +2,10 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { type FormEvent } from "react";
 import { useActivities } from "../../lib/hooks/useActivities";
 
-type Props = {
-     // property name 'closeForm' of type function that takes no arguments and returns void: type of data we expect to receive from parent component
-    activity?: Activity; // property name 'activity' of type Activity object: type of data we expect to receive from parent component
-    closeForm: () => void;
-}
-
-export default function ActivityForm({ activity, closeForm }: Props) {
+export default function ActivityForm() {
 
 const {updateActivity, createActivity} = useActivities(); // Custom hook to fetch activities using react-query
-
+const activity={} as Activity; // Placeholder for the activity object, you can replace it with actual data when editing an existing activity
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
     // Handle form submission logic here
@@ -35,11 +29,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
         data.id = activity.id; // If editing an existing activity, include the id in the data object
         await updateActivity.mutateAsync(data as unknown as Activity); // Call the updateActivity mutation function with the form data
-        closeForm(); // Close the form after successful update
+       // Close the form after successful update
     }else{
 
         await createActivity.mutateAsync(data as unknown as Activity); // Call the createActivity mutation function with the form data
-        closeForm(); // Close the form after successful creation
+        // Close the form after successful creation
     }
 
     // console.log(data);
@@ -71,7 +65,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
             <Box display='flex' justifyContent='space-between' alignItems='center' gap={2}>
 
-                <Button onClick={closeForm} color="inherit" fullWidth>
+                <Button  color="inherit" fullWidth>
                     Cancel
                 </Button>
 
