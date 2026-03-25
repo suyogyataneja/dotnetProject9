@@ -44,7 +44,8 @@ const queryClient = useQueryClient();
   const createActivity = useMutation({
 
     mutationFn : async (activity: Activity) => {
-      await agent.post('/Activities', activity);
+      const response = await agent.post('/Activities', activity);
+      return response.data;
     },
     onSuccess: async () => {      // Invalidate and refetch
 
