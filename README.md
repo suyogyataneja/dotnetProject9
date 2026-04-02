@@ -145,4 +145,4 @@ The pipeline:
 - Builds the React frontend
 - Is designed to support parallel jobs once hosted parallelism is available
 - CI/CD is implemented on azure devops and github actions.
-
+- added a claude.md file
