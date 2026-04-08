@@ -4,7 +4,7 @@
 
 # 🚀 Reactivities — Full-Stack CRUD Application
 
-(.NET 8 API + React + React Query)
+(.NET 9 API + React + React Query)
 
 Reactivities is a modern full-stack demo application showcasing a complete CRUD workflow using enterprise-level architecture and best practices.
 
