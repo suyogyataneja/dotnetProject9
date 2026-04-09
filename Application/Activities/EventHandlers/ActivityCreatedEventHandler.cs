@@ -16,8 +16,6 @@ public class ActivityCreatedEventHandler :INotificationHandler<ActivityCreatedEv
 
     public async Task Handle(ActivityCreatedEvent notification, CancellationToken cancellationToken)
     {
-        // throw new NotImplementedException();
-        
-        await _httpClient.PostAsJsonAsync("https://localhost:5001/api/activities", notification.Activity, cancellationToken);
+        await _httpClient.PostAsJsonAsync("", notification.Activity, cancellationToken);
     }
 }
