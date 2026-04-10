@@ -148,3 +148,5 @@ The pipeline:
   
 - added a claude.md file(Claude code has info related to architecture, coding style etc)
 - - added a claude.md file(Claude code has info related to architecture, coding style etc)
+  - 
+- - added a claude.md file(Claude code has info related to architecture, coding style etc)
