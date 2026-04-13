@@ -147,3 +147,4 @@ The pipeline:
 - CI/CD is implemented on azure devops and github actions.
   
 - added a claude.md file(Claude code has info related to architecture, coding style etc)
+- Use Azure Functions to generate events. A email is sent when a new activity is created.
