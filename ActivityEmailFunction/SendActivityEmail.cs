@@ -30,7 +30,7 @@ public class SendActivityEmail
         var connectionString = Environment.GetEnvironmentVariable("Azure_Email_Connection");
         var emailClient = new EmailClient(connectionString);
 
-        var emailMessage = new EmailMessage(senderAddress: "DoNotReply@4b1c3955-2b4c-4bf6-94b9-77f03c4c460a.au1.azurecomm.net",
+        var emailMessage = new EmailMessage(senderAddress: "DoNotReply@4358f03d-e395-4f15-ab2f-e5b3181c09f6.azurecomm.net" ,
             content: new EmailContent("Activity created")
             {
                 PlainText = $"Activity created: {activity?.Title} created in {activity?.City}"
