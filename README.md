@@ -148,3 +148,4 @@ The pipeline:
   
 - added a claude.md file(Claude code has info related to architecture, coding style etc)
 - Use Azure Functions to generate events. A email is sent when a new activity is created.
+- Azure functions created in Portal
