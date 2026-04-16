@@ -1,6 +1,5 @@
 import { Box, Container, CssBaseline } from '@mui/material';
 import NavBar from './NavBar';
-import ActivityDashboard from '../../features/dashboard/ActivityDashboard';
 import { Outlet } from 'react-router';
 
 
