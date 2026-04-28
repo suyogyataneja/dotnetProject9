@@ -150,3 +150,113 @@ The pipeline:
 - Use Azure Functions to generate events. A email is sent when a new activity is created.
 - Azure functions created in Portal
 - Create a email alert when a new activity is created which is done using Azure functions.
+
+Improvements I am working on right now is Adding Azure Service Bus to send messages in my project:
+
+ ---
+  What You Have Today
+
+  When a user creates a new activity, your flow is:
+
+  User creates activity
+      → Create.cs handler saves to DB
+      → Raises ActivityCreatedEvent (MediatR domain event)
+      → ActivityCreatedEventHandler catches it
+      → Makes a direct HTTP POST to your Azure Function
+      → Azure Function does something with that activity data (e.g., sends a notification email, logs it, etc.)
+
+  This works, but the HTTP call in ActivityCreatedEventHandler.cs is synchronous coupling — your API is directly calling the Azure Function and waiting for a response.
+
+  ---
+  The Problem With Direct HTTP
+
+  Think about what happens in these real-world scenarios:
+
+  1. Azure Function is down for maintenance — the HTTP call fails, the event is lost, no one gets notified. Your handler silently swallows it (you have no retry logic).
+  2. Azure Function is slow — your API handler is blocked waiting for the Function to respond. The user who created the activity is staring at a spinner while an email is being composed somewhere in Azure.
+  3. You want to add more reactions to "activity created" — say you also want to send a push notification AND update a search index AND log analytics. Now your handler makes 3 HTTP calls in sequence. If the second one fails, did the
+  first one already fire? Do you roll back? It gets messy fast.                                                                                                                                                                          
+  4. Spike in traffic — 50 users create activities at the same time. Your API fires 50 HTTP calls simultaneously to the Function, which might throttle or crash. There's no backpressure.
+                                                                                                                                                                                                                                         
+  ---             
+  What Azure Service Bus Solves                                                                                                                                                                                                          
+                                                                                                                                                                                                                                         
+  Service Bus is a message queue that sits between your API and the Azure Function. Instead of calling the Function directly, you drop a message onto the queue and walk away.
+                                                                                                                                                                                                                                         
+  BEFORE (what you have):
+    API Handler → HTTP POST → Azure Function                                                                                                                                                                                             
+    - Coupled, fragile, blocking                                                                                                                                                                                                         
+   
+  AFTER (with Service Bus):                                                                                                                                                                                                              
+    API Handler → publish message → Service Bus Queue → Azure Function picks it up
+    - Decoupled, resilient, non-blocking                                                                                                                                                                                                 
+   
+  Here's what changes:                                                                                                                                                                                                                   
+                  
+  ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐   
+  │      Problem      │                                                                                           How Service Bus Fixes It                                                                                           │
+  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤   
+  │ Function is down  │ Messages queue up and wait. When the Function recovers, it processes them all. Nothing is lost.                                                                                                              │
+  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Function is slow  │ Your API doesn't care — it publishes and returns immediately. The user sees instant response.                                                                                                                │   
+  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤   
+  │ Multiple          │ Use a Service Bus Topic instead of a Queue. One "activity created" message triggers email, push notification, and analytics — each with its own independent subscription. If one fails, the others still     │   
+  │ consumers         │ work.                                                                                                                                                                                                        │   
+  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ Traffic spikes    │ The queue absorbs the burst. The Function processes messages at its own pace. No overload.                                                                                                                   │   
+  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤   
+  │ Failed processing │ Built-in retry. If the Function crashes mid-processing, the message becomes visible again and gets reprocessed. After max retries, it goes to a dead-letter queue where you can inspect and replay it.       │
+  └───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘   
+                  
+  ---                                                                                                                                                                                                                                    
+  The Use Case In Your App
+                                                                                                                                                                                                                                         
+  Your Reactivities app is a social activity platform. Think about all the things that should happen when an activity is created, edited, cancelled, or when someone joins:
+                                                                                                                                                                                                                                         
+  Activity Created:
+  - Email followers of the host: "John created a new activity: Beach Volleyball"                                                                                                                                                         
+  - Send push notifications to nearby users                                                                                                                                                                                              
+  - Index the activity for search
+                                                                                                                                                                                                                                         
+  Activity Cancelled:
+  - Email all attendees: "Beach Volleyball on Saturday has been cancelled"                                                                                                                                                               
+  - Update calendar integrations                                                                                                                                                                                                         
+  - Log for analytics           
+                                                                                                                                                                                                                                         
+  User Joins an Activity:
+  - Notify the host: "Sarah is attending your event"                                                                                                                                                                                     
+  - Update recommendation engine                    
+                                                                                                                                                                                                                                         
+  Each of these is a side effect — it shouldn't block the main operation and it shouldn't fail silently. That's exactly what a message broker is for.                                                                                    
+                                                                                                                                                                                                                                         
+  ---                                                                                                                                                                                                                                    
+  What Changes In Your Code                                                                                                                                                                                                              
+                                                                                                                                                                                                                                         
+  Your ActivityCreatedEventHandler goes from this:
+                                                                                                                                                                                                                                         
+  // Direct HTTP call — coupled, fragile
+  await _httpClient.PostAsJsonAsync(_functionUrl, payload, cancellationToken);                                                                                                                                                           
+   
+  To this:                                                                                                                                                                                                                               
+                  
+  // Publish to Service Bus — decoupled, resilient
+  await _serviceBusClient.SendMessageAsync(new ServiceBusMessage(JsonSerializer.Serialize(payload)));
+                                                                                                                                                                                                                                         
+  And your Azure Function changes its trigger from HTTP to Service Bus:                                                                                                                                                                  
+                                                                                                                                                                                                                                         
+  // BEFORE: HTTP trigger — must be called explicitly                                                                                                                                                                                    
+  [Function("OnActivityCreated")]                                                                                                                                                                                                        
+  public async Task Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequestData req)
+                                                                                                                                                                                                                                         
+  // AFTER: Service Bus trigger — fires automatically when a message arrives
+  [Function("OnActivityCreated")]                                                                                                                                                                                                        
+  public async Task Run([ServiceBusTrigger("activity-created", Connection = "ServiceBusConnection")] string message)                                                                                                                     
+   
+  You delete the AzureFunctionUrl config, remove the HttpClient registration for the handler, and replace it with a Service Bus client. The Function no longer needs to be exposed as an HTTP endpoint at all.                           
+                  
+  ---                                                                                                                                                                                                                                    
+  In Short        
+                                                                                                                                                                                                                                         
+  You're doing this because your API shouldn't care what happens after it saves the activity. It should announce "an activity was created" and move on. Azure Service Bus is the reliable, scalable announcement board that guarantees
+  the message gets delivered — even if the listeners are temporarily unavailable.                                                                                                                                                        
+                  
