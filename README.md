@@ -274,4 +274,49 @@ API Handler → publish message → Service Bus Queue → Azure Function picks i
                                                                                                                                                                                                                                          
   You're doing this because your API shouldn't care what happens after it saves the activity. It should announce "an activity was created" and move on. Azure Service Bus is the reliable, scalable announcement board that guarantees
   the message gets delivered — even if the listeners are temporarily unavailable.                                                                                                                                                        
+⸻
+
+Authentication & Identity
+
+🧩 What This Project Uses — ASP.NET Core Identity
+	•	Users are stored in your database (SQL Server via AppDbContext)
+	•	Your application handles:
+	•	Registration & login
+	•	Password hashing
+	•	Token generation (JWT / cookies)
+	•	Fully self-managed authentication system
+
+⸻
+
+☁️ What Azure AD Is — Microsoft Entra ID
+	•	Users are managed in Microsoft’s cloud directory
+	•	Authentication happens via Microsoft’s login page
+	•	Your app does not handle passwords
+	•	Uses:
+	•	OAuth 2.0
+	•	OpenID Connect
+	•	Common for enterprise / SSO scenarios
+
+⸻
+
+⚖️ Quick Comparison
                   
+| Feature              | ASP.NET Core Identity        | Microsoft Entra ID |
+|---------------------|-----------------------------|--------------------|
+| User Storage        | Your database               | Microsoft cloud     |
+| Authentication      | Your API                    | Microsoft login     |
+| Password Handling   | You manage                  | Microsoft manages   |
+| Protocols           | JWT / Cookies               | OAuth2 / OIDC       |
+| Use Case            | Custom apps                 | Enterprise SSO      |
+| Social Login        | Manual setup                | Built-in            |
+
+
+ Simple Analogy
+	•	ASP.NET Identity → You verify users yourself
+	•	Entra ID → Microsoft verifies users for you
+
+⸻
+
+🔄 Extensibility
+	•	Email & password (current setup)
+	•	“Sign in with Microsoft” (future option)
