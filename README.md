@@ -191,22 +191,39 @@ Improvements I am working on right now is Adding Azure Service Bus to send messa
     API Handler → publish message → Service Bus Queue → Azure Function picks it up
     - Decoupled, resilient, non-blocking                                                                                                                                                                                                 
    
-  Here's what changes:                                                                                                                                                                                                                   
-Problem
-How Service Bus Fixes It
-Function is down
-Messages queue up and wait. When the Function recovers, it processes them all. Nothing is lost.
-Function is slow
-Your API doesn’t care — it publishes and returns immediately. The user sees instant response.
-Multiple consumers
-Use a Service Bus Topic instead of a Queue. One “activity created” message triggers email, push notification, and analytics — each with its own independent subscription. If one fails, the others still work.
-Traffic spikes
-The queue absorbs the burst. The Function processes messages at its own pace. No overload.
-Failed processing
-Built-in retry. If the Function crashes mid-processing, the message becomes visible again and gets reprocessed. After max retries, it goes to a dead-letter queue where you can inspect and replay it.
+---
 
-                  
-  ---                                                                                                                                                                                                                                    
+## 💡 What Azure Service Bus Solves
+
+Service Bus is a message queue that sits between your API and the Azure Function. Instead of calling the Function directly, you drop a message onto the queue and walk away.
+
+---
+
+### ❌ BEFORE (what you have)
+
+API Handler → HTTP POST → Azure Function  
+- Coupled, fragile, blocking  
+
+---
+
+### ✅ AFTER (with Service Bus)
+
+API Handler → publish message → Service Bus Queue → Azure Function picks it up  
+- Decoupled, resilient, non-blocking  
+
+---
+
+## 🔄 What Changes
+
+| Problem | How Service Bus Fixes It |
+|--------|--------------------------|
+| Function is down | Messages queue up and wait. When the Function recovers, it processes them all. Nothing is lost. |
+| Function is slow | Your API doesn't care — it publishes and returns immediately. The user sees instant response. |
+| Multiple consumers | Use a Service Bus Topic instead of a Queue. One "activity created" message triggers email, push notification, and analytics — each with its own independent subscription. If one fails, the others still work. |
+| Traffic spikes | The queue absorbs the burst. The Function processes messages at its own pace. No overload. |
+| Failed processing | Built-in retry. If the Function crashes mid-processing, the message becomes visible again and gets reprocessed. After max retries, it goes to a dead-letter queue where you can inspect and replay it. |
+
+---                                                                                                                                                                                                                      
   The Use Case In Your App
                                                                                                                                                                                                                                          
   Your Reactivities app is a social activity platform. Think about all the things that should happen when an activity is created, edited, cancelled, or when someone joins:
