@@ -192,21 +192,19 @@ Improvements I am working on right now is Adding Azure Service Bus to send messa
     - Decoupled, resilient, non-blocking                                                                                                                                                                                                 
    
   Here's what changes:                                                                                                                                                                                                                   
-                  
-  ┌───────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐   
-  │      Problem      │                                                                                           How Service Bus Fixes It                                                                                           │
-  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤   
-  │ Function is down  │ Messages queue up and wait. When the Function recovers, it processes them all. Nothing is lost.                                                                                                              │
-  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-  │ Function is slow  │ Your API doesn't care — it publishes and returns immediately. The user sees instant response.                                                                                                                │   
-  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤   
-  │ Multiple          │ Use a Service Bus Topic instead of a Queue. One "activity created" message triggers email, push notification, and analytics — each with its own independent subscription. If one fails, the others still     │   
-  │ consumers         │ work.                                                                                                                                                                                                        │   
-  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-  │ Traffic spikes    │ The queue absorbs the burst. The Function processes messages at its own pace. No overload.                                                                                                                   │   
-  ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤   
-  │ Failed processing │ Built-in retry. If the Function crashes mid-processing, the message becomes visible again and gets reprocessed. After max retries, it goes to a dead-letter queue where you can inspect and replay it.       │
-  └───────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘   
+Problem
+How Service Bus Fixes It
+Function is down
+Messages queue up and wait. When the Function recovers, it processes them all. Nothing is lost.
+Function is slow
+Your API doesn’t care — it publishes and returns immediately. The user sees instant response.
+Multiple consumers
+Use a Service Bus Topic instead of a Queue. One “activity created” message triggers email, push notification, and analytics — each with its own independent subscription. If one fails, the others still work.
+Traffic spikes
+The queue absorbs the burst. The Function processes messages at its own pace. No overload.
+Failed processing
+Built-in retry. If the Function crashes mid-processing, the message becomes visible again and gets reprocessed. After max retries, it goes to a dead-letter queue where you can inspect and replay it.
+
                   
   ---                                                                                                                                                                                                                                    
   The Use Case In Your App
