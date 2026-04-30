@@ -320,3 +320,6 @@ Authentication & Identity
 🔄 Extensibility
 	•	Email & password (current setup)
 	•	“Sign in with Microsoft” (future option)
+
+
+Will be implementing Azure Redis cache too.
