@@ -322,4 +322,4 @@ Authentication & Identity
 	•	“Sign in with Microsoft” (future option)
 
 
-Will be implementing Azure Redis cache too.
+Will be implementing Azure Redis cache and Azure Service Bus too.
