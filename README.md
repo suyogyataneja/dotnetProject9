@@ -323,3 +323,17 @@ Authentication & Identity
 
 
 Will be implementing Azure Redis cache and Azure Service Bus too.
+
+ Creating Infrastructure project to add Caching
+ 
+ Infrastructure references Application — because the CachingBehavior lives in Application and uses IDistributedCache (an abstraction). Infrastructure is where you configure the concrete Redis implementation for that abstraction. It 
+  needs to see Application to know what it's wiring up.                                                                                                                                                                                  
+                                                                                                                                                                                                                                         
+  API references Infrastructure — because Program.cs (in API) needs to call AddInfrastructureServices() to register Redis into the DI container at startup. Without this reference, API can't see Infrastructure's extension method.     
+                                                                                                                                                                                                                                         
+  The dependency chain becomes:                                                                                                                                                                                                          
+                  
+  API → Infrastructure → Application → Domain
+
+  Each layer only knows about the layer directly below it. Application never knows Redis exists — it only sees IDistributedCache. Infrastructure provides the Redis implementation. API wires it all together at startup.                
+   
