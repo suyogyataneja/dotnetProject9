@@ -336,4 +336,21 @@ Will be implementing Azure Redis cache and Azure Service Bus too.
   API → Infrastructure → Application → Domain
 
   Each layer only knows about the layer directly below it. Application never knows Redis exists — it only sees IDistributedCache. Infrastructure provides the Redis implementation. API wires it all together at startup.                
-   
+
+
+ In clean architecture:
+
+  API (outermost)
+    → Infrastructure
+      → Application
+        → Domain (innermost)
+
+  Domain knows about nothing — it's pure business entities with zero dependencies.
+
+  Application knows about Domain — it uses entities to implement business logic, but has no idea how data is stored or what external services exist. It only defines abstractions (interfaces).
+
+  Infrastructure knows about Application — it provides concrete implementations for those abstractions (Redis for IDistributedCache, Cloudinary for IPhotoAccessor, SMTP for IEmailSender, etc.).
+
+  API knows about Infrastructure — but only to wire everything together at startup. After that, it just dispatches MediatR requests.
+
+  The core rule: inner layers never reference outer layers. If an inner layer needs something from the outside world, it defines an interface, and an outer layer implements it. That's dependency inversion.
