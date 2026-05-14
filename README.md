@@ -354,3 +354,52 @@ Will be implementing Azure Redis cache and Azure Service Bus too.
   API knows about Infrastructure — but only to wire everything together at startup. After that, it just dispatches MediatR requests.
 
   The core rule: inner layers never reference outer layers. If an inner layer needs something from the outside world, it defines an interface, and an outer layer implements it. That's dependency inversion.
+
+Use Case for Infrastructure Project
+
+                                                                                                                                                                                                                                       
+  Step 1 — Create the Infrastructure project                                                                                                                                                                                             
+   
+  - Create a new class library: dotnet new classlib -n Infrastructure                                                                                                                                                                    
+  - Add project references:
+    - Infrastructure references Application                                                                                                                                                                                              
+    - API references Infrastructure
+                                                                                                                                                                                                                                         
+  Step 2 — Add NuGet packages
+                                                                                                                                                                                                                                         
+  - Microsoft.Extensions.Caching.StackExchangeRedis → Infrastructure project                                                                                                                                                             
+  - Microsoft.Extensions.Caching.Abstractions → Application project
+                                                                                                                                                                                                                                         
+  Step 3 — Create ICacheable marker interface
+
+  - In Application/Core/ICacheable.cs                                                                                                                                                                                                    
+   
+  Step 4 — Create CachingBehavior pipeline                                                                                                                                                                                               
+                  
+  - In Application/Core/CachingBehavior.cs
+
+  Step 5 — Create a DI extension method in Infrastructure                                                                                                                                                                                
+   
+  - In Infrastructure/DependencyInjection.cs — an AddInfrastructureServices(IConfiguration) extension method that calls AddStackExchangeRedisCache(...). This keeps Redis wiring out of Program.cs and inside the Infrastructure layer   
+  where it belongs.
+                                                                                                                                                                                                                                         
+  Step 6 — Register in Program.cs
+
+  - Call builder.Services.AddInfrastructureServices(builder.Configuration)                                                                                                                                                               
+  - Register CachingBehavior as an open behavior alongside ValidationBehavior
+                                                                                                                                                                                                                                         
+  Step 7 — Add Redis connection string
+
+  - Add to your configuration (user-secrets or appsettings.Development.json)                                                                                                                                                             
+   
+  Step 8 — Mark queries as cacheable                                                                                                                                                                                                     
+                  
+  - GetActivityList.Query and GetActivityDetails.Query implement ICacheable                                                                                                                                                              
+   
+  Step 9 — Invalidate cache on mutations                                                                                                                                                                                                 
+                  
+  - Inject IDistributedCache in Create/Edit/Delete handlers, remove stale keys after successful saves                                                                                                                                    
+   
+  Step 10 — Run Redis locally and test                                                                                                                                                                                                   
+                  
+  ---
