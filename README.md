@@ -403,6 +403,6 @@ Use Case for Infrastructure Project
   Step 10 — Run Redis locally and test                                                                                                                                                                                                   
                   
   ---
-  You can run redis locally or use Azure Cache for Redis.  We are usng local REDIS.
+  You can run redis locally or use Azure Cache for Redis.  
 
   
