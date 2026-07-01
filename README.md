@@ -406,4 +406,6 @@ Use Case for Infrastructure Project
   You can run redis locally or use Azure Cache for Redis.  
 
 Logging - Serilog
+
+Add unit tests for all endpoint using Xunit
   
