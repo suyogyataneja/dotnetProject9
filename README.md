@@ -408,4 +408,5 @@ Use Case for Infrastructure Project
 Logging - Serilog
 
 Add unit tests for all endpoint using Xunit
+Add test cases for front end too
   
