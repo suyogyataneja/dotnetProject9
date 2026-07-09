@@ -16,7 +16,7 @@ It demonstrates clean backend architecture, modern React patterns, authenticatio
 # Reactivities — Full-Stack CRUD App (.NET 8 API + React + React Query)
 
 Reactivities is a full-stack demo application that demonstrates a modern CRUD workflow using:
-also hostinv 
+also host
 	•	 .NET 8 Web API with Clean Architecture principles (CQRS, Mediator, AutoMapper, EF Core)
 	•	 React (Vite + TypeScript) for a responsive UI
 	•	 React Query for efficient server state management
